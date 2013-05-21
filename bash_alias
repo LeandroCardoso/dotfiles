@@ -1,0 +1,168 @@
+#!/usr/bin/bash
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias d="cd -"
+alias dates="echo -n 'Brasil   '; TZ=America/Sao_Paulo date; echo -n 'Alemanha '; TZ=Europe/Berlin date; echo -n 'India    '; TZ=Asia/Kolkata date"
+alias dirs="dirs -v"
+alias dos2unix_="sed -e 's/\r//'"
+alias dus="du -s *"
+alias duss="du -s * | sort -n"
+alias eg="env | grep"
+alias emacs="emacs -nw"
+alias emc="emacs"
+alias emcc="emacsclient -n"
+alias f="fg"
+alias h="history | tail -n $LINES"
+alias hg="history | grep"
+alias ipcsa="ipcs -a"
+alias ipcsw="ipcs -a | grep -e $USER -e IPC -e ID"
+alias j="jobs -l"
+alias lstar="tar -tf"
+alias psu='ps -fu $USER'
+alias setcmvc=". setapp cmvc"
+alias setoracle=". setappx oracle"
+alias shlvl="echo $SHLVL"
+alias stripx="chmod -x"
+alias stripxf="find . -type f -exec chmod -x {} \;"
+alias uniqcount="sort | uniq -c | sort -n"
+alias uniqs="sort | uniq"
+alias unix2dos_="sed -e 's/$/\r/'"
+alias untar="tar -xf"
+alias wcl="wc -l"
+which zcat &>/dev/null || alias zcat="gzip -dc"
+
+# ls alias
+# Try to guess if color is supported
+if $(ls --color &>/dev/null); then
+    alias ls="ls -F -T 0 -N --color=auto"
+else
+    alias ls="ls -F"
+fi
+
+alias l="ls"
+alias ll="ls -l"
+alias la="ls -a"
+alias lla="ls -la"
+alias lh="ls -lh"
+alias lt="ls -ltr"
+alias lsd="ls -d"
+
+# find alias
+alias fd="find . -follow -name"
+alias fdf="find . -follow -type f -name"
+alias fdd="find . -follow -type d -name"
+alias findd="find . -follow -type d"
+alias findf="find .  -follow -type f"
+alias findimpl="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp'"
+alias findhdr="find . -follow -name '*.h' -o -name '*.hpp'"
+alias findsrc="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp'"
+alias findmake="find . -follow -name '[Mm]ake*'"
+
+# grep alias
+alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
+alias grepimpl="findimpl | xgrep -nH"
+alias grephdr="findhdr | xgrep -nH"
+alias grepsrc="findsrc | xgrep -nH"
+alias grepmake="findmake | xgrep -nH"
+
+
+# Cleartool alias
+if [[ $HOSTNAME == arizona ]]; then
+    alias ct=cleartool
+    alias ctdynamic="cleartool setview cardosol_dynamic_view"
+    alias ctreserve="cleartool lsco -r -s -me -cview | xargs cleartool reserve"
+    alias ctunreserve="cleartool lsco -r -s -me -cview | xargs cleartool unreserve"
+    alias ctlsco="cleartool lsco -r -me -cview"
+    alias ctco="cleartool co -unr -cq"
+    alias ctci="cleartool lsco -r -s -me -cview | xargs cleartool ci -nc"
+    alias ctunco="cleartool lsco -r -s -me -cview | xargs cleartool unco"
+    alias ctdiff='cleartool diff -col $COLUMNS -options -b'
+    alias ctdiffgpre="cleartool diff -g -pre"
+
+    ctmksnap()
+    {
+        if [ -z "$1" ]; then
+            echo "View name is missing"
+        else
+            echo "Creating view $1"
+            cleartool mkview -snapshot -tag $1 -stgloc views.arizona ~/views/$1
+        fi
+    }
+
+    ctget()
+    {
+        for file in $@; do
+            echo ct get -to ${1//[@\/]/_} $1
+        done
+    }
+else
+    alias ct="echo you are not in arizona"
+    alias cleartool="echo you are not in arizona"
+fi
+
+# Display functions
+savedisplay()
+{
+    if [[ -z $DISPLAY ]]; then
+        echo "Error: DISPLAY not set"
+    else
+        echo $DISPLAY
+        echo $DISPLAY > "$HOME/.display"
+    fi
+}
+setdisplay()
+{
+    if [[ $1 ]]; then
+        export DISPLAY=$1
+    else
+        export DISPLAY=$(<"$HOME/.display")
+    fi
+    
+    echo DISPLAY=$DISPLAY
+}
+alias unsetdisplay="unset DISPLAY"
+alias editdisplay="${EDITOR:-emacs} $HOME/.display"
+
+# SSH Connection functions
+ssh_save()
+{
+    local sty=$1
+    
+    if [[ ! $sty && -x /usr/bin/screen ]]; then
+        sty=$(screen -ls | grep Detached | sed 's/\t\(.*\) *(Detached)/\1/')
+    fi
+
+    if [[ ! $sty ]]; then
+        echo No screen found!
+        return 1
+    elif [[ $(wc -w <<<$sty ) > 1 ]]; then
+        echo There are more than one screen session running.
+        screen -ls
+        return 1
+    fi
+
+    if [[ $sty ]]; then
+        echo STY:$sty
+        echo STY $sty >> $HOME/.ssh_connection        
+        echo SSH_CLIENT $SSH_CLIENT >> $HOME/.ssh_connection
+        echo SSH_TTY $SSH_TTY >> $HOME/.ssh_connection
+        echo SSH_AUTH_SOCK $SSH_AUTH_SOCK >> $HOME/.ssh_connection
+        echo SSH_CONNECTION $SSH_CONNECTION >> $HOME/.ssh_connection
+    fi
+}
+
+ssh_restore()
+{
+    local key value sty
+    while read key value; do
+        if [[ $key == STY ]]; then
+            sty="$value"
+        fi
+
+        if [[ $sty == $STY && $key != STY ]]; then
+            export $key="$value"
+        fi
+    done < $HOME/.ssh_connection
+}

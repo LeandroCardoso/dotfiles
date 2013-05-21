@@ -1,0 +1,9 @@
+[user]
+	name = Leandro Cardoso
+	email = leandro.cardoso@ericsson.com
+[merge]
+	tool = emerge
+[diff]
+	tool = emerge
+[core]
+	editor = emacs

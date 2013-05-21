@@ -1,0 +1,16 @@
+alias c=cont
+alias d=down
+alias l=list
+alias n=next
+alias p=print
+alias q=quit
+alias s=step
+alias sa="stop at"
+alias si="stop in"
+alias su="step up"
+alias u=up
+alias w=where
+
+dbxenv follow_fork_mode ask
+dbxenv follow_fork_inherit on
+dbxenv output_short_file_name off

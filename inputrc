@@ -1,0 +1,20 @@
+# Never rings the annoying bell
+set bell-style none
+
+# Enable eight-bit input
+# set input-meta on
+
+# This will allow single tab completion as opposed to requiring a double tab.
+set show-all-if-ambiguous on
+
+# This will suffix each returned file completion with a character denoting its type, in a similar way to ls(1) with -F or --classify.
+set visible-stats on
+
+# Completed directory names have a slash appended.
+set mark-directories on
+
+# Completed names which are symbolic links to directories have a slash appended (subject to the value of mark-directories).
+set mark-symlinked-directories on
+
+# This determines when the user is queried about viewing the number of possible completions
+set completion-query-items 200

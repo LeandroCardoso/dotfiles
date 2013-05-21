@@ -1,0 +1,132 @@
+# Don't display the copyright page
+startup_message off
+
+# Increase the scrollback buffer
+defscrollback 5000
+
+# Default escape
+escape ^Jj
+
+# Default silence wait time (seconds)
+silencewait 15
+
+# alternate screen support is enabled in virtual terminals
+altscreen on
+
+# Fix scroll in putty (but, it doesn't work)
+#termcapinfo xterm* ti@:te@
+#termcapinfo screen* ti@:te@
+#terminfo * am
+
+# Default caption
+# caption always '%w'
+
+# Custom caption
+# %?%F  sets only the window that has focus
+# %:    sets only the window that does not has focus
+# $?    closes the window selection
+# ${}   sets foreground and background colors
+# ${.}  keeps color unchanged
+# %{-}  restores the attributes and colors that were set before the last change was made 
+# %-w   all window numbers and names to the current window
+# %n    current window number
+# %t    current window name
+# %+w   all window numbers and names after the current window
+#
+# Colors (capitalized versions of the letter specify bright colors):
+# k black
+# r red
+# g green
+# y yellow
+# b blue
+# m magenta
+# c cyan
+# w white
+# d default color
+
+# default colors
+caption always '%?%F%{kK}%:%{kK}%?%-w%?%F%{W}%:%{.}%?[%n %t]%{-}%+w'
+# color display
+#caption always '%?%F%{wK}%:%{kK}%?%-w%?%F%{R}%:%{.}%?[%n %t]%{-}%+w'
+
+# Always display hardstatus
+# hardstatus alwayslastline
+
+# Set term to 256 colors
+# term screen-256color
+
+# Disable the visual bell (audible bell will be enable)
+vbell off
+
+# Disable flow control (allow ^S works like expected in emacs)
+# If some window bug, run 'flow off' to fix it
+# defflow off
+
+# Remove Key Binds from flow control because it is useless and annoying
+#bind ^S
+#bind s
+#bind ^Q
+#bind q
+
+# Remove key binds to lock screen too
+bind ^X
+bind x
+
+# Remove the Key Bind to change the VBell because it is useless and annoying
+bind ^g
+bind ^G
+
+# Key Bindings
+#
+#     Key name        Termcap name
+#     ----------------------------
+#     Cursor up            ku
+#     Cursor down          kd
+#     Cursor right         kr
+#     Cursor left          kl
+#     Function key 0       k0
+#     Function key 1       k1
+#     Function key 2       k2
+#     Function key 3       k3
+#     Function key 4       k4
+#     Function key 5       k5
+#     Function key 6       k6
+#     Function key 7       k7
+#     Function key 8       k8
+#     Function key 9       k9
+#     Function key 10      k;
+#     Function key 11      F1
+#     Function key 12      F2
+#     Home                 kh
+#     End                  kH
+#     Insert               kI
+#     Delete               kD
+#     Page up              kP
+#     Page down            kN
+#     Keypad 0             f0
+#     Keypad 1             f1
+#     Keypad 2             f2
+#     Keypad 3             f3
+#     Keypad 4             f4
+#     Keypad 5             f5
+#     Keypad 6             f6
+#     Keypad 7             f7
+#     Keypad 8             f8
+#     Keypad 9             f9
+#     Keypad +             f+
+#     Keypad -             f-
+#     Keypad *             f*
+#     Keypad /             f/
+#     Keypad =             fq
+#     Keypad .             f.
+#     Keypad ,             f,
+#     Keypad enter         fe
+
+bind = resize =
+bind + resize +1
+bind - resize -1
+bindkey -k k2 focus
+bindkey -k k3 prev
+bindkey -k k4 next
+bindkey -k k5 copy
+bindkey -k k6 paste .
