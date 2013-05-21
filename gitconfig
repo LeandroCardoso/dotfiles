@@ -7,3 +7,5 @@
 	tool = emerge
 [core]
 	editor = emacs
+[color]
+	ui = true
