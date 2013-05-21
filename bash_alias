@@ -94,7 +94,7 @@ if [[ $HOSTNAME == arizona ]]; then
     ctget()
     {
         for file in $@; do
-            echo ct get -to ${1//[@\/]/_} $1
+            ct get -to ${1//[@\/]/_} $1
         done
     }
 else
