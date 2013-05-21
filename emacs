@@ -57,24 +57,16 @@
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
- '(word-wrap t))
+ '(word-wrap t)
+ )
 
-(if (file-readable-p "/usr/bin/hunspell")
-    (setq ispell-program-name "/usr/bin/hunspell")
-  (if (file-readable-p "/usr/bin/aspell")
-      (setq ispell-program-name "/usr/bin/aspell")))
+(if (file-readable-p "/usr/bin/enchant")
+    (setq ispell-program-name "/usr/bin/enchant")
+  (if (file-readable-p "/usr/bin/hunspell")
+      (setq ispell-program-name "/usr/bin/hunspell")
+    (if (file-readable-p "/usr/bin/aspell")
+        (setq ispell-program-name "/usr/bin/aspell"))))
 
-(defun bscs-update ()
-  "Update BSCS related configurations."
-  (interactive)
-  (setq tags-table-list (list (concat (getenv "MAIN") "/src/TAGS.gz")))
-  ;; The first part used to change between the header and implementation files
-  ;; The second part (where the MAIN is used) is used to search for include files
-  (setq cc-search-directories (list "." "include" "*" ".." "../*/*" "../../*/*" "/usr/include" "/usr/local/include/*" (concat (getenv "MAIN") "/src/*/include") (concat (getenv "MAIN") "/src/mp/*/include") (concat (getenv "MAIN") "/src/rp/*/srv/src/*/interface") (concat (getenv "MAIN") "/src/rp/crc/int/Public_Interfaces/includes")))
-  )
-
-(bscs-update)
- 
 ;; auto modes
 (add-to-list 'auto-mode-alist '("\\.pc\\'"   . c-mode))
 (add-to-list 'auto-mode-alist '("\\.pcpp\\'" . c++-mode))
@@ -87,6 +79,36 @@
 
 ;; Start the emacs server needed by the emacsclient
 (server-start)
+
+(set-default-font "Source Code Pro-9")
+
+(if (file-readable-p "~/.emacs.d/listp/ladebug.el")
+    (load-library "ladebug"))
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(define-generic-mode
+  'note-history-mode  ;; name of the mode to create
+  nil                 ;; comments
+  nil                 ;; keywords
+  '(("^=====.*" . 'font-lock-comment-face)
+   )
+  '("notehistory")    ;; files for which to activate this mode
+  nil                ;; other functions to call
+  "Note History mode" ;; doc string for this mode
+)
+
+(defun bscs-update ()
+  "Update BSCS related configurations."
+  (interactive)
+  (setq tags-table-list (list (concat (getenv "MAIN") "/src/TAGS.gz")))
+  ;; The first part used to change between the header and implementation files
+  ;; The second part (where the MAIN is used) is used to search for include files
+  (setq cc-search-directories (list "." "include" "*" ".." "../*/*" "../../*/*" "/usr/include" "/usr/local/include/*" (concat (getenv "MAIN") "/src/*/include") (concat (getenv "MAIN") "/src/mp/*/include") (concat (getenv "MAIN") "/src/rp/*/srv/src/*/interface") (concat (getenv "MAIN") "/src/rp/crc/int/Public_Interfaces/includes")))
+  )
+
+(bscs-update)
 
 (defun pn ()
   "print the PN number from the environment variable PNNUMBER"
@@ -178,30 +200,6 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "ESC O M") 'newline-and-indent)
 (global-set-key (kbd "ESC O n") ",")
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-(define-generic-mode
-  'note-history-mode  ;; name of the mode to create
-  nil                 ;; comments
-  nil                 ;; keywords
-  '(("^=====.*" . 'font-lock-comment-face)    
-   )
-  '("notehistory")    ;; files for which to activate this mode
-  nil                ;; other functions to call
-  "Note History mode" ;; doc string for this mode
-)
-
-;; LADebug on DEC / Compaq machines
-(load-library "ladebug")
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
-
 (if (>= emacs-major-version 24)
     (progn
       (package-initialize)
@@ -224,3 +222,10 @@ Position the cursor at its beginning, according to the current mode."
       (require 'zenburn)
       (color-theme-zenburn)
       ))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
