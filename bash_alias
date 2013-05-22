@@ -10,9 +10,6 @@ alias dos2unix_="sed -e 's/\r//'"
 alias dus="du -s *"
 alias duss="du -s * | sort -n"
 alias eg="env | grep"
-alias emacs="emacs -nw"
-alias emc="emacs"
-alias emcc="emacsclient -n"
 alias f="fg"
 alias h="history | tail -n $LINES"
 alias hg="history | grep"
@@ -32,6 +29,14 @@ alias unix2dos_="sed -e 's/$/\r/'"
 alias untar="tar -xf"
 alias wcl="wc -l"
 which zcat &>/dev/null || alias zcat="gzip -dc"
+
+if [[ $TERM == eterm* ]]; then
+    alias emacs="emacsclient"
+else
+    alias emacs="emacs -nw"
+fi
+alias emc="emacs"
+alias emcc="emacsclient -n"
 
 # ls alias
 # Try to guess if color is supported
