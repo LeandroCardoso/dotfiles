@@ -55,6 +55,7 @@
  '(truncate-partial-width-windows nil)
  '(uniquify-after-kill-buffer-p t)
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
+ '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
  '(word-wrap t))
