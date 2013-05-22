@@ -29,7 +29,7 @@
  '(ido-create-new-buffer (quote always))
  '(ido-decorations (quote (" { " " }" " | " " | ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
  '(ido-everywhere t)
- '(ido-mode t)
+ '(ido-mode t nil (ido))
  '(ido-save-directory-list-file "~/.emacs.d/ido.last")
  '(indent-tabs-mode nil)
  '(initial-buffer-choice nil)
@@ -57,8 +57,7 @@
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
- '(word-wrap t)
- )
+ '(word-wrap t))
 
 (if (file-readable-p "/usr/bin/enchant")
     (setq ispell-program-name "/usr/bin/enchant")
@@ -228,4 +227,4 @@ Position the cursor at its beginning, according to the current mode."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(woman-italic ((t (:inherit italic :underline t)))))
