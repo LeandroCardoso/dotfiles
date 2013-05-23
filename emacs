@@ -58,7 +58,7 @@
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
- '(word-wrap t))
+ )
 
 (if (file-readable-p "/usr/bin/enchant")
     (setq ispell-program-name "/usr/bin/enchant")
