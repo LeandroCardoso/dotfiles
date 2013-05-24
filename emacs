@@ -61,9 +61,6 @@
 ;; Start the emacs server needed by the emacsclient
 (server-start)
 
-;; Outside customizations because it can cause trouble with older emacs
-(ido-mode t)
-
 ;; xterm mouse support
 (xterm-mouse-mode t)
 
@@ -203,6 +200,7 @@ Position the cursor at its beginning, according to the current mode."
 
 (if (>= emacs-major-version 24)
     (progn
+      (ido-mode t)
       (package-initialize)
       (load-theme 'zenburn t)
       ;; auto-complete settings
