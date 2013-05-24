@@ -42,7 +42,7 @@
  '(menu-bar-mode nil)
  '(mouse-wheel-mode t)
  '(normal-erase-is-backspace nil)
- '(scroll-bar-mode (quote right))
+ '(scroll-bar-mode nil)
  '(semantic-mode t)
  '(show-paren-mode t nil (paren))
  '(size-indication-mode t)
@@ -57,8 +57,7 @@
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
- '(woman-fill-frame t)
- )
+ '(woman-fill-frame t))
 
 (if (file-readable-p "/usr/bin/enchant")
     (setq ispell-program-name "/usr/bin/enchant")
