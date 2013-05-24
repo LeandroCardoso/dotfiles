@@ -73,6 +73,10 @@
 (add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
 
+;; ff-find-other-file to proC
+(add-to-list 'cc-other-file-alist '("\\.pc\\'"(".h")) t)
+(add-to-list 'cc-other-file-alist '("\\.pcpp\\'"(".hpp" ".h")) t)
+
 ;; xterm mouse support
 (xterm-mouse-mode t)
 
