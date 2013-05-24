@@ -14,6 +14,7 @@
  '(bs-default-configuration "all-intern-last")
  '(c-basic-offset 4)
  '(c-offsets-alist (quote ((substatement-open . 0) (case-label . +))))
+ '(cc-other-file-alist (quote (("\\.pc\\'" (".h")) ("\\.cc\\'" (".hh" ".h")) ("\\.hh\\'" (".cc" ".C")) ("\\.c\\'" (".h")) ("\\.h\\'" (".c" ".cc" ".C" ".CC" ".cxx" ".cpp")) ("\\.C\\'" (".H" ".hh" ".h")) ("\\.H\\'" (".C" ".CC")) ("\\.CC\\'" (".HH" ".H" ".hh" ".h")) ("\\.HH\\'" (".CC")) ("\\.c\\+\\+\\'" (".h++" ".hh" ".h")) ("\\.h\\+\\+\\'" (".c++")) ("\\.cpp\\'" (".hpp" ".hh" ".h")) ("\\.hpp\\'" (".cpp")) ("\\.cxx\\'" (".hxx" ".hh" ".h")) ("\\.hxx\\'" (".cxx")) ("\\.pcpp\\'" (".hpp" ".h")))))
  '(column-number-mode t)
  '(custom-safe-themes (quote ("20f9c36dea110eb7c9ef197891fccaf54f9c6fa4c594df45c5d41f4f002f36fb" default)))
  '(delete-selection-mode t nil (delsel))
@@ -29,7 +30,6 @@
  '(ido-create-new-buffer (quote always))
  '(ido-decorations (quote (" { " " }" " | " " | ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
  '(ido-everywhere t)
- '(ido-mode t nil (ido))
  '(ido-save-directory-list-file "~/.emacs.d/ido.last")
  '(indent-tabs-mode nil)
  '(initial-buffer-choice nil)
@@ -48,7 +48,6 @@
  '(size-indication-mode t)
  '(sqlplus-command-highlighting-style (quote background))
  '(tab-width 4)
- '(tool-bar-mode nil)
  '(tooltip-mode t)
  '(tooltip-use-echo-area t)
  '(truncate-lines nil)
@@ -58,6 +57,17 @@
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t))
+
+;; Start the emacs server needed by the emacsclient
+(server-start)
+
+;; Outside customizations because it can cause trouble with older emacs
+(ido-mode t)
+
+;; xterm mouse support
+(xterm-mouse-mode t)
+
+(set-default-font "Source Code Pro-9")
 
 (if (file-readable-p "/usr/bin/enchant")
     (setq ispell-program-name "/usr/bin/enchant")
@@ -70,20 +80,8 @@
 (add-to-list 'auto-mode-alist '("\\.pc\\'"   . c-mode))
 (add-to-list 'auto-mode-alist '("\\.pcpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("make.*"     . makefile-mode))
-(add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
-
-;; ff-find-other-file to proC
-(add-to-list 'cc-other-file-alist '("\\.pc\\'"(".h")) t)
-(add-to-list 'cc-other-file-alist '("\\.pcpp\\'"(".hpp" ".h")) t)
-
-;; xterm mouse support
-(xterm-mouse-mode t)
-
-;; Start the emacs server needed by the emacsclient
-(server-start)
-
-(set-default-font "Source Code Pro-9")
+(add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
 
 (if (file-readable-p "~/.emacs.d/listp/ladebug.el")
     (load-library "ladebug"))
