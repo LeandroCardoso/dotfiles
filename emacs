@@ -48,6 +48,7 @@
  '(size-indication-mode t)
  '(sqlplus-command-highlighting-style (quote background))
  '(tab-width 4)
+ '(tool-bar-mode nil)
  '(tooltip-mode t)
  '(tooltip-use-echo-area t)
  '(truncate-lines nil)
