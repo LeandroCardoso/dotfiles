@@ -40,7 +40,6 @@
  '(kill-ring-max 300)
  '(make-backup-files nil)
  '(menu-bar-mode nil)
- '(mouse-wheel-mode t)
  '(normal-erase-is-backspace nil)
  '(scroll-bar-mode nil)
  '(semantic-mode t)
@@ -57,13 +56,21 @@
  '(uniquify-buffer-name-style (quote forward) nil (uniquify))
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
- '(woman-fill-frame t))
+ '(woman-fill-frame t)
+ '(xterm-mouse-mode t))
 
 ;; Start the emacs server needed by the emacsclient
 (server-start)
 
 ;; xterm mouse support
-(xterm-mouse-mode t)
+(require 'mouse)
+(defun track-mouse (e))
+(global-set-key [mouse-4]'(lambda ()
+                             (interactive)
+                             (scroll-down 1)))
+(global-set-key [mouse-5] '(lambda ()
+                             (interactive)
+                             (scroll-up 1)))
 
 (set-default-font "Source Code Pro-9")
 
