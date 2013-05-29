@@ -1,5 +1,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; It is very funny that I should load the tool-bar, just to immediately disable it
+(load-library "tool-bar")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
