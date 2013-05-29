@@ -45,6 +45,7 @@
  '(menu-bar-mode nil)
  '(normal-erase-is-backspace nil)
  '(scroll-bar-mode nil)
+ '(semantic-idle-truncate-long-summaries nil)
  '(semantic-mode t)
  '(show-paren-mode t nil (paren))
  '(size-indication-mode t)
