@@ -232,6 +232,8 @@ Position the cursor at its beginning, according to the current mode."
       ;;(color-theme-hober)
       (require 'zenburn)
       (color-theme-zenburn)
+      (xterm-mouse-mode 1)
+      (mouse-wheel-mode 1)
       ))
 
 (custom-set-faces
