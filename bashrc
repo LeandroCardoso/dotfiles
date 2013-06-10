@@ -80,7 +80,7 @@ else
     export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
 fi
 
-setpromptcommand()
+set_screen_title()
 {
     PROMPT_STR=${HOSTNAME/\.*/}
     [[ $CUSTOMER ]] && PROMPT_STR="${PROMPT_STR}|${CUSTOMER}"
@@ -92,7 +92,7 @@ setpromptcommand()
 if [[ $TERM == screen* || $STY ]]; then
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}\033\\"'
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}|${CUSTOMER}\033\\"'
-    export PROMPT_COMMAND=setpromptcommand
+    export PROMPT_COMMAND=set_screen_title
 else
     unset PROMPT_COMMAND
 fi
