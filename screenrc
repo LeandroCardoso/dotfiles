@@ -13,8 +13,8 @@ altscreen on
 # Default silence wait time (seconds)
 silencewait 15
 
-# Set term to 256 colors
-term xterm
+# Set term
+term xterm-256color
 
 # Disable wrap line
 defwrap off
