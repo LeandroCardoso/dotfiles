@@ -1,11 +1,11 @@
+# Default escape
+escape ^Jj
+
 # Don't display the copyright page
 startup_message off
 
 # Increase the scrollback buffer
 defscrollback 5000
-
-# Default escape
-escape ^Jj
 
 # Default silence wait time (seconds)
 silencewait 15
@@ -48,9 +48,6 @@ altscreen on
 caption always '%?%F%{kK}%:%{kK}%?%-w%?%F%{W}%:%{.}%?[%n %t]%{-}%+w'
 # color display
 #caption always '%?%F%{wK}%:%{kK}%?%-w%?%F%{R}%:%{.}%?[%n %t]%{-}%+w'
-
-# Always display hardstatus
-# hardstatus alwayslastline
 
 # Set term to 256 colors
 # term screen-256color
