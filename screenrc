@@ -7,16 +7,17 @@ startup_message off
 # Increase the scrollback buffer
 defscrollback 5000
 
-# Default silence wait time (seconds)
-silencewait 15
-
 # alternate screen support is enabled in virtual terminals
 altscreen on
 
-# Fix scroll in putty (but, it doesn't work)
-#termcapinfo xterm* ti@:te@
-#termcapinfo screen* ti@:te@
-#terminfo * am
+# Default silence wait time (seconds)
+silencewait 15
+
+# Set term to 256 colors
+term xterm
+
+# Disable wrap line
+defwrap off
 
 # Default caption
 # caption always '%w'
@@ -48,12 +49,6 @@ altscreen on
 caption always '%?%F%{kK}%:%{kK}%?%-w%?%F%{W}%:%{.}%?[%n %t]%{-}%+w'
 # color display
 #caption always '%?%F%{wK}%:%{kK}%?%-w%?%F%{R}%:%{.}%?[%n %t]%{-}%+w'
-
-# Set term to 256 colors
-# term screen-256color
-
-# Disable wrap line
-defwrap off
 
 # Disable the visual bell (audible bell will be enable)
 vbell off

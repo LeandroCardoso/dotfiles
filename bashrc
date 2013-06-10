@@ -89,7 +89,7 @@ setpromptcommand()
 }
 
 # Screen Dynamic Title
-if [[ $TERM == screen* ]]; then
+if [[ $TERM == screen* || $STY ]]; then
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}\033\\"'
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}|${CUSTOMER}\033\\"'
     export PROMPT_COMMAND=setpromptcommand
