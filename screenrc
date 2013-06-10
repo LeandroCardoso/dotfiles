@@ -52,6 +52,9 @@ caption always '%?%F%{kK}%:%{kK}%?%-w%?%F%{W}%:%{.}%?[%n %t]%{-}%+w'
 # Set term to 256 colors
 # term screen-256color
 
+# Disable wrap line
+defwrap off
+
 # Disable the visual bell (audible bell will be enable)
 vbell off
 
