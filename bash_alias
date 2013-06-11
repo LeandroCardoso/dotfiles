@@ -99,7 +99,7 @@ if [[ $HOSTNAME == arizona ]]; then
     ctget()
     {
         for file in $@; do
-            ct get -to ${1//[@\/]/_} $1
+            cleartool get -to ${1//[@\/]/_} $1
         done
     }
 else
