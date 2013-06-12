@@ -82,7 +82,7 @@ if [[ $HOSTNAME == arizona ]]; then
     alias ctlsco="cleartool lsco -r -me -cview"
     alias ctco="cleartool co -unr -cq"
     alias ctci="cleartool lsco -r -s -me -cview | xargs cleartool ci -nc"
-    alias ctunco="cleartool lsco -r -s -me -cview | xargs cleartool unco"
+    alias ctunco="cleartool lsco -r -s -me -cview | xargs cleartool unco -keep"
     alias ctdiff='cleartool diff -col $COLUMNS -options -b'
     alias ctdiffgpre="cleartool diff -g -pre"
 
