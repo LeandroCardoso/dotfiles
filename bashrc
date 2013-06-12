@@ -88,11 +88,17 @@ set_screen_title()
     echo -ne "\033k${PROMPT_STR}\033\\"
 }
 
+setscreen()
+{
+    export SCREEN=1
+    export PROMPT_COMMAND=set_screen_title
+}
+
 # Screen Dynamic Title
 if [[ $TERM == screen* || ($TERM == xterm* && $STY) ]]; then
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}\033\\"'
     # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}|${CUSTOMER}\033\\"'
-    export PROMPT_COMMAND=set_screen_title
+    setscreen
 else
     unset PROMPT_COMMAND
 fi
