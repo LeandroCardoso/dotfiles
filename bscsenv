@@ -378,8 +378,9 @@ setprofile()
     # FIOT
     alias fiotkill='fiot -MI -B 499'
     alias fiotreloadcat='fiot -MI -B 492'
-    alias fiotreloadcux='fiot -MI -B 496'
+    alias fiotreloadbil='fiot -MI -B 493'
     alias fiotreloadcx='fiot -MI -B 495'
+    alias fiotreloadcux='fiot -MI -B 496'
     alias fiotterminate='fiot -MI -B 498'
 
     # SDPX
