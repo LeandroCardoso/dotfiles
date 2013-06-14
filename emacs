@@ -25,6 +25,7 @@
  '(desktop-path (quote ("." "~/.emacs.d/" "~")))
  '(ediff-split-window-function (quote split-window-horizontally))
  '(fill-column 120)
+ '(global-auto-complete-mode t)
  '(global-font-lock-mode t nil (font-lock))
  '(global-hl-line-mode t nil (hl-line))
  '(global-semantic-idle-summary-mode t)
@@ -217,7 +218,6 @@ Position the cursor at its beginning, according to the current mode."
       (load-theme 'zenburn t)
       ;; auto-complete settings
       ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-      ;; (ac-config-default)
       ;; ;; auto-complete-mode tries to reduce a cost of computation of columns to show completion menu correctly by using a optimized function at the expense of accuracy. However, it probably causes a menu to be disrupted.
       ;; (setq popup-use-optimized-column-computation nil)
       ;; (ac-flyspell-workaround)
