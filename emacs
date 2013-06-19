@@ -47,6 +47,8 @@
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(normal-erase-is-backspace nil)
+ '(org-adapt-indentation nil)
+ '(org-startup-truncated nil)
  '(scroll-bar-mode nil)
  '(semantic-idle-truncate-long-summaries nil)
  '(semantic-mode t)
@@ -224,14 +226,10 @@ Position the cursor at its beginning, according to the current mode."
       (ido-mode t)
       (package-initialize)
       (load-theme 'zenburn t)
-      ;; auto-complete settings
       ;; Auto Complete
       (require 'auto-complete-config)
       (ac-config-default)
-      ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-      ;; ;; auto-complete-mode tries to reduce a cost of computation of columns to show completion menu correctly by using a optimized function at the expense of accuracy. However, it probably causes a menu to be disrupted.
-      ;; (setq popup-use-optimized-column-computation nil)
-      ;; (ac-flyspell-workaround)
+      (global-semantic-idle-local-symbol-highlight-mode)
       ))
 
 (if (<= emacs-major-version 23)
