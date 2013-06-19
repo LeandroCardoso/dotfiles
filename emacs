@@ -24,6 +24,8 @@
  '(desktop-enable t nil (desktop))
  '(desktop-path (quote ("." "~/.emacs.d/" "~")))
  '(ediff-split-window-function (quote split-window-horizontally))
+ '(electric-indent-mode t)
+ '(electric-pair-mode t)
  '(fill-column 120)
  '(global-auto-complete-mode t)
  '(global-font-lock-mode t nil (font-lock))
@@ -77,8 +79,10 @@
                              (interactive)
                              (scroll-up 1)))
 
+;; Font
 (set-default-font "Source Code Pro-9")
 
+;; Spell
 (if (file-readable-p "/usr/bin/enchant")
     (setq ispell-program-name "/usr/bin/enchant")
   (if (file-readable-p "/usr/bin/hunspell")
@@ -93,11 +97,15 @@
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
 (add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
 
+;; ladebug
 (if (file-readable-p "~/.emacs.d/listp/ladebug.el")
     (load-library "ladebug"))
 
+;; packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;; My Functions
 
 (define-generic-mode
   'note-history-mode  ;; name of the mode to create
@@ -217,6 +225,9 @@ Position the cursor at its beginning, according to the current mode."
       (package-initialize)
       (load-theme 'zenburn t)
       ;; auto-complete settings
+      ;; Auto Complete
+      (require 'auto-complete-config)
+      (ac-config-default)
       ;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
       ;; ;; auto-complete-mode tries to reduce a cost of computation of columns to show completion menu correctly by using a optimized function at the expense of accuracy. However, it probably causes a menu to be disrupted.
       ;; (setq popup-use-optimized-column-computation nil)
