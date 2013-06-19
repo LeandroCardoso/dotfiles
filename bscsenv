@@ -376,12 +376,13 @@ setprofile()
     alias rlhnsa="unset RLH_NON_PERMANENT"
 
     # FIOT
-    alias fiotkill='fiot -MI -B 499'
-    alias fiotreloadcat='fiot -MI -B 492'
-    alias fiotreloadbil='fiot -MI -B 493'
-    alias fiotreloadcx='fiot -MI -B 495'
-    alias fiotreloadcux='fiot -MI -B 496'
-    alias fiotterminate='fiot -MI -B 498'
+    alias fiot_kill='fiot -MI -B 499'
+    alias fiot_reload='fiot -MI -B 497'
+    alias fiot_reload_bil='fiot -MI -B 493'
+    alias fiot_reload_cat='fiot -MI -B 492'
+    alias fiot_reload_cux='fiot -MI -B 496'
+    alias fiot_reload_cx='fiot -MI -B 495'
+    alias fiot_term='fiot -MI -B 498'
 
     # SDPX
     alias ccgwstart='ccgw 1 $CONFPATH/config.ini -n 1'
