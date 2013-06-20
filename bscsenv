@@ -44,6 +44,7 @@ setpn()
     export CUSTOMER=${pn#*_}
     echo PN: $PNNUMBER
     echo Customer: $CUSTOMER
+    screen_title
 
     alias cdpn="cd $PNPATH"
     alias cqnotehistoryupdate="cqnotehistory ${PNNUMBER} > ${PNPATH}/notehistory"
@@ -152,6 +153,7 @@ setbscs()
     echo Work: $BSCS_WORKDIR
     echo Platform/hostname: $(tail -1 ${RELEASEPATH}/uname 2>/dev/null)
     echo Database: $(cat "${RELEASEPATH}/database" 2>/dev/null)
+    screen_title
 
     if [[ ! $RELEASE ]]; then
         echo Error: Invalid RELEASE

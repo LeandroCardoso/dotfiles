@@ -80,29 +80,6 @@ else
     export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
 fi
 
-set_screen_title()
-{
-    PROMPT_STR=${HOSTNAME/\.*/}
-    [[ $CUSTOMER ]] && PROMPT_STR="${PROMPT_STR}|${CUSTOMER}"
-    [[ $CLEARCASE_ROOT ]] && PROMPT_STR="${PROMPT_STR}|dynamicCC"
-    echo -ne "\033k${PROMPT_STR}\033\\"
-}
-
-setscreen()
-{
-    export SCREEN=1
-    export PROMPT_COMMAND=set_screen_title
-}
-
-# Screen Dynamic Title
-if [[ $TERM == screen* || ($TERM == xterm* && ($STY || $SCREEN)) ]]; then
-    # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}\033\\"'
-    # export PROMPT_COMMAND='echo -ne "\033k${HOSTNAME}|${CUSTOMER}\033\\"'
-    setscreen
-else
-    unset PROMPT_COMMAND
-fi
-
 # grep with color (linux)
 export GREP_OPTIONS="--color=auto"
 
@@ -180,6 +157,14 @@ if [[ -r $BASH_COMPLETION ]]; then
     . $BASH_COMPLETION
 fi
 
+screen_title()
+{
+    TITLE=${HOSTNAME/\.*/}
+    [[ $CUSTOMER ]] && TITLE="${TITLE}|${CUSTOMER}"
+    [[ $CLEARCASE_ROOT ]] && TITLE="${TITLE}|dynamicCC"
+    echo -e "setting screen title: \033k${TITLE}\033\\"
+}
+
 # My aliases
 [[ -e $HOME/.bash_alias ]] && . $HOME/.bash_alias
 [[ -e $HOME/.bscsenv ]] && . $HOME/.bscsenv
@@ -192,6 +177,7 @@ echo Bash Version: $BASH_VERSION
 echo Bash Completion: $(basename $BASH_COMPLETION)
 echo Term: $TERM
 echo Lang: $LC_ALL
+screen_title
 echo ${fggreen}Color Test${reset}
 ipcs -a | grep $USER &>/dev/null && echo Shared Memory is being used
 echo
