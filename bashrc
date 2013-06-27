@@ -75,7 +75,7 @@ rev=$(tput rev)          # reverse
 # export PS1="\h:\j \w:\$ "
 # These machines do not support color prompt :-(
 if [[ $(uname -s) == HP-UX || $(uname -s) == AIX ]]; then
-    export PS1="\[$blink\]\h:\j \w:\[$bold\]\$\[$reset\] "
+    export PS1="\[$rev\]\h:\j \w:\[$bold\]\$\[$reset\] "
 else
     export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
 fi
