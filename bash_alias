@@ -9,10 +9,10 @@ alias dirs="dirs -v"
 alias dos2unix_="sed -e 's/\r//'"
 alias dus="du -s *"
 alias duss="du -s * | sort -n"
-alias eg="env | grep"
+alias eg="env | grep -i"
 alias f="fg"
 alias h="history | tail -n $LINES"
-alias hg="history | grep"
+alias hg="history | grep -i"
 alias ipcsa="ipcs -a"
 alias ipcsw="ipcs -a | grep -e $USER -e IPC -e ID"
 alias j="jobs -l"
@@ -66,6 +66,7 @@ alias findsrc="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -n
 alias findmake="find . -follow -name '[Mm]ake*'"
 
 # grep alias
+alias grepi="grep -i"
 alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
 alias grepimpl="findimpl | xgrep -nH"
 alias grephdr="findhdr | xgrep -nH"
