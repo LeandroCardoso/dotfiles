@@ -129,7 +129,7 @@ setdisplay()
     echo DISPLAY=$DISPLAY
 }
 alias unsetdisplay="unset DISPLAY"
-alias editdisplay="${EDITOR:-emacs} $HOME/.display"
+alias editdisplay="${EDITOR:-emacs} $HOME/.display && setdisplay"
 
 # SSH Connection functions
 ssh_save()
