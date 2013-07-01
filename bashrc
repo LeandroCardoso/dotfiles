@@ -131,8 +131,12 @@ shopt -s histappend
 shopt -s cmdhist
 # Bash will not attempt to search the PATH for possible completions when completion is attempted on an empty line.
 shopt -s no_empty_cmd_completion
-# enable recursive globbing with **
-(( ${BASH_VERSINFO[0]} >= 4 )) && shopt -s globstar
+if (( ${BASH_VERSINFO[0]} >= 4 )); then
+    # attempts spelling correction on directory names during word completion
+    shopt -s dirspell
+    # enable recursive globbing with **
+    shopt -s globstar
+fi
 
 # Set Oracle and Perl to run cleartool in arizona
 if [[ $HOSTNAME == arizona && ( -z $ORACLE_HOME || -z $PERL_ROOT ) ]]; then
