@@ -28,6 +28,7 @@
  '(electric-pair-mode t)
  '(fill-column 120)
  '(global-auto-complete-mode t)
+ '(global-auto-revert-mode t)
  '(global-font-lock-mode t nil (font-lock))
  '(global-hl-line-mode t nil (hl-line))
  '(global-semantic-idle-summary-mode t)
