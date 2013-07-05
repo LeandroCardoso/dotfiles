@@ -433,6 +433,13 @@ setinsure()
     . setapp insure
 }
 
+unsetinsure()
+{
+    echo Unsetting Insure
+    unset USE_INSURE
+    unset PARASOFT
+}
+
 setsdpx()
 {
     local ERROR
