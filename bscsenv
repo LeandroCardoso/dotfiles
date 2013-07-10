@@ -431,6 +431,8 @@ setinsure()
     echo Setting Insure
     export USE_INSURE=1
     . setapp insure
+    alias cdbininsure="cd ${BSCS_BIN/\/bin\//\/bin.insure\/}"
+    alias cdlibinsure="cd ${BSCS_LIB/\/lib\//\/lib.insure\/}"
 }
 
 unsetinsure()
@@ -438,6 +440,8 @@ unsetinsure()
     echo Unsetting Insure
     unset USE_INSURE
     unset PARASOFT
+    unalias cdbininsure
+    unalias cdlibinsure
 }
 
 setsdpx()
