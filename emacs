@@ -67,8 +67,7 @@
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
- '(xterm-mouse-mode t)
- '(yas-global-mode t nil (yasnippet)))
+ '(xterm-mouse-mode t))
 
 ;; Start the emacs server needed by the emacsclient
 (server-start)
@@ -225,13 +224,14 @@ Position the cursor at its beginning, according to the current mode."
 
 (if (>= emacs-major-version 24)
     (progn
-      (ido-mode t)
       (package-initialize)
       (load-theme 'zenburn t)
       ;; Auto Complete
       (require 'auto-complete-config)
       (ac-config-default)
       (global-semantic-idle-local-symbol-highlight-mode)
+      (ido-mode t)
+      (yas-global-mode t)
       ))
 
 (if (<= emacs-major-version 23)
