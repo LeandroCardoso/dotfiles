@@ -67,7 +67,8 @@
  '(vc-follow-symlinks t)
  '(which-function-mode t nil (which-func))
  '(woman-fill-frame t)
- '(xterm-mouse-mode t))
+ '(xterm-mouse-mode t)
+ '(yas-global-mode t nil (yasnippet)))
 
 ;; Start the emacs server needed by the emacsclient
 (server-start)
