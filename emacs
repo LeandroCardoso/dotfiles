@@ -55,7 +55,9 @@
  '(semantic-mode t)
  '(show-paren-mode t nil (paren))
  '(size-indication-mode t)
- '(sqlplus-command-highlighting-style (quote background))
+ '(sql-input-ring-file-name "~/.emacs.d/sql-history")
+ '(sql-password "SYSADM")
+ '(sql-user "SYSADM")
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(tooltip-mode t)
@@ -128,6 +130,7 @@
   ;; The first part used to change between the header and implementation files
   ;; The second part (where the MAIN is used) is used to search for include files
   (setq cc-search-directories (list "." "include" "*" ".." "../*/*" "../../*/*" "/usr/include" "/usr/local/include/*" (concat (getenv "MAIN") "/src/*/include") (concat (getenv "MAIN") "/src/mp/*/include") (concat (getenv "MAIN") "/src/rp/*/srv/src/*/interface") (concat (getenv "MAIN") "/src/rp/crc/int/Public_Interfaces/includes")))
+  (setq sql-database (getenv "BSCSDB"))
   )
 
 (bscs-update)
