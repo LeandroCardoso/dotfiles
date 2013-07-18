@@ -12,7 +12,7 @@ done
 
 # Add bin dirs at the end
 # /usr/ucb: SunOS
-for newpath in /usr/ucb /usr/local/bin $HOME/bin; do
+for newpath in /usr/ucb /usr/local/bin $HOME/bin/* $HOME/bin; do
     if [[ -d $newpath && ":$PATH:" != *:$newpath:* ]]; then
         export PATH=$PATH:$newpath
     fi
