@@ -343,9 +343,15 @@ setprofile()
         echo Set BSCS_LIB=$BSCS_LIB
     fi
 
-    #export PATH=$PATH:$BSCS_BIN
+    # export PATH=$PATH:$BSCS_BIN
     if [[ ":$PATH:" != *":$BSCS_BIN:"* ]]; then
         export PATH=$PATH:$BSCS_BIN
+    fi
+
+    # LICESING path to RLH
+    if [[ ":$LD_LIBRARY_PATH:" != *":$LICENSING_HOME"* ]]; then
+        export LD_LIBRARY_PATH=$LICENSING_HOME/lib/$APP_OSID:$LD_LIBRARY_PATH
+        export LD_LIBRARY_PATH=$LICENSING_HOME/3pp/$APP_OSID:$LD_LIBRARY_PATH
     fi
 
     # Set GDB shared library path to the BSCS and system libraries
