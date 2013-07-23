@@ -348,7 +348,7 @@ setprofile()
         export PATH=$PATH:$BSCS_BIN
     fi
 
-    # LICESING path to RLH
+    # Licesing to RLH
     if [[ ":$LD_LIBRARY_PATH:" != *":$LICENSING_HOME"* ]]; then
         export LD_LIBRARY_PATH=$LICENSING_HOME/lib/$APP_OSID:$LD_LIBRARY_PATH
         export LD_LIBRARY_PATH=$LICENSING_HOME/3pp/$APP_OSID:$LD_LIBRARY_PATH
