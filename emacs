@@ -102,6 +102,10 @@
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
 (add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
 
+;; Hooks
+(add-hook 'text-mode-hook 'ispell-minor-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
 ;; ladebug
 (if (file-readable-p "~/.emacs.d/listp/ladebug.el")
     (load-library "ladebug"))
