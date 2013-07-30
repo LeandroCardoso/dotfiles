@@ -198,7 +198,8 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "ESC /") 'hippie-expand) ;; default is dabbrev-expand
 (global-set-key (kbd "C-c ESC /") 'complete-tag) ;; ALT ENTER
 (global-set-key (kbd "ESC ?") 'tags-search)
-(global-set-key "\C-x\C-b" 'bs-show) ;; default is list-buffers
+(global-set-key (kbd "C-x C-b") 'bs-show) ;; default is list-buffers
+(global-set-key (kbd "C-c C-r") 'revert-buffer)
 (global-set-key (kbd "RET") 'newline-and-indent) ;; default is newline
 (global-set-key (kbd "ESC RET") 'smart-newline-and-indent) ;; ALT ENTER
 (global-set-key (kbd "C-M-\\") 'smart-indent) ;; default is indent-region
