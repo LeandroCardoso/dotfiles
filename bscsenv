@@ -191,6 +191,9 @@ setbscs()
     alias rmtmp="find $BSCS_WORKDIR/TMP/ -type f -exec rm {} \;"
     alias rmqueues="rm -irf $BSCS_WORKDIR/QUEUES/*"
 
+    alias updatedb="updatedb -l 0 -U $MAIN -o $MAIN/locate.db"
+    alias locate="locate -d $MAIN/locate.db"
+    
     alias mkctags="find $MAIN/src -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' -print0 | xargs -0 ctags -e --extra=+fq --langmap=c:+.pc,c++:+.pcpp -f - | gzip > $MAIN/src/TAGS.gz"
 
     alias mketags="find $MAIN/src -follow \( -path $MAIN/src/udrlib/st -o -path $MAIN/src/udrlib/mt \) -prune -o \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \) -print0 | xargs -0 etags -o - | gzip > $MAIN/src/TAGS.gz"

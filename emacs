@@ -45,6 +45,7 @@
  '(ispell-silently-savep t)
  '(jit-lock-stealth-time 1)
  '(kill-ring-max 300)
+ '(locate-make-command-line (quote my-locate-command-line))
  '(make-backup-files nil)
  '(menu-bar-mode nil)
  '(normal-erase-is-backspace nil)
@@ -138,6 +139,10 @@
   )
 
 (bscs-update)
+
+(defun my-locate-command-line (search-string)
+  (list locate-command "-d" (concat(getenv "MAIN") "/locate.db") search-string)
+  )
 
 (defun pn ()
   "print the PN number from the environment variable PNNUMBER"
