@@ -108,14 +108,12 @@
 
 ;; List variables
 (eval-after-load "grep"
-  '(add-to-list 'grep-files-aliases '("pc" . "*.pc *.pcpp"))
-  )
+  '(add-to-list 'grep-files-aliases '("pc" . "*.pc *.pcpp")))
 
 (eval-after-load "find-file"
   '(progn 
      (add-to-list 'cc-other-file-alist '("\\.pc\\'" (".h")))
-     (add-to-list 'cc-other-file-alist '("\\.pcpp\\'" (".hpp" ".h")))
-     ))
+     (add-to-list 'cc-other-file-alist '("\\.pcpp\\'" (".hpp" ".h")))))
 
 ;; packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -135,7 +133,7 @@
   '("notehistory")    ;; files for which to activate this mode
   nil                ;; other functions to call
   "Note History mode" ;; doc string for this mode
-)
+  )
 
 ;; Functions
 
@@ -146,14 +144,12 @@
   ;; The first part used to change between the header and implementation files
   ;; The second part (where the MAIN is used) is used to search for include files
   (setq cc-search-directories (list "." "include" "*" ".." "../*/*" "../../*/*" "/usr/include" "/usr/local/include/*" (concat (getenv "MAIN") "/src/*/include") (concat (getenv "MAIN") "/src/mp/*/include") (concat (getenv "MAIN") "/src/rp/*/srv/src/*/interface") (concat (getenv "MAIN") "/src/rp/crc/int/Public_Interfaces/includes")))
-  (setq sql-database (getenv "BSCSDB"))
-  )
+  (setq sql-database (getenv "BSCSDB")))
 
 (bscs-update)
 
 (defun my-locate-command-line (search-string)
-  (list locate-command "-d" (concat(getenv "MAIN") "/locate.db") search-string)
-  )
+  (list locate-command "-d" (concat(getenv "MAIN") "/locate.db") search-string))
 
 (defun pn ()
   "print the PN number from the environment variable PNNUMBER"
@@ -191,6 +187,18 @@ Position the cursor at its beginning, according to the current mode."
         (indent-pp-sexp ())
         (message "Indented sexp.")))))
 
+(defun duplicate-line (&optional n)
+  "Duplicate the current line
+With optinal arg n, duplicate n times"
+  (interactive "*^P")
+  (or n (setq n 1))
+  (save-excursion
+    (kill-ring-save (line-beginning-position) (line-beginning-position 2))
+    (while (> n 0)
+      (forward-line)
+      (yank)
+      (setq n (1- n)))))
+
 ;; Key binds
 (global-set-key (kbd "ESC g g") 'goto-line) ;; default in emacs 22
 (global-set-key (kbd "ESC g ESC g") 'goto-line) ;; default in emacs 22
@@ -205,6 +213,7 @@ Position the cursor at its beginning, according to the current mode."
 (global-set-key (kbd "C-M-\\") 'smart-indent) ;; default is indent-region
 (global-set-key (kbd "C-M-q") 'smart-indent) ;; default is indent-pp-sexp
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
+(global-set-key (kbd "C-c C-d") 'duplicate-line)
 
 (global-set-key (kbd "ESC [ d") 'backward-word) ;; ctrl left
 (global-set-key (kbd "ESC [ c") 'forward-word) ;; ctrl right
@@ -255,8 +264,7 @@ Position the cursor at its beginning, according to the current mode."
       (ac-config-default)
       (global-semantic-idle-local-symbol-highlight-mode)
       (ido-mode t)
-      (yas-global-mode t)
-      ))
+      (yas-global-mode t)))
 
 (if (<= emacs-major-version 23)
     (progn
@@ -268,8 +276,7 @@ Position the cursor at its beginning, according to the current mode."
       (require 'zenburn)
       (color-theme-zenburn)
       (xterm-mouse-mode 1)
-      (mouse-wheel-mode 1)
-      ))
+      (mouse-wheel-mode 1)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
