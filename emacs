@@ -17,7 +17,6 @@
  '(bs-default-configuration "all-intern-last")
  '(c-basic-offset 4)
  '(c-offsets-alist (quote ((substatement-open . 0) (case-label . +))))
- '(cc-other-file-alist (quote (("\\.pc\\'" (".h")) ("\\.cc\\'" (".hh" ".h")) ("\\.hh\\'" (".cc" ".C")) ("\\.c\\'" (".h")) ("\\.h\\'" (".c" ".cc" ".C" ".CC" ".cxx" ".cpp")) ("\\.C\\'" (".H" ".hh" ".h")) ("\\.H\\'" (".C" ".CC")) ("\\.CC\\'" (".HH" ".H" ".hh" ".h")) ("\\.HH\\'" (".CC")) ("\\.c\\+\\+\\'" (".h++" ".hh" ".h")) ("\\.h\\+\\+\\'" (".c++")) ("\\.cpp\\'" (".hpp" ".hh" ".h")) ("\\.hpp\\'" (".cpp")) ("\\.cxx\\'" (".hxx" ".hh" ".h")) ("\\.hxx\\'" (".cxx")) ("\\.pcpp\\'" (".hpp" ".h")))))
  '(column-number-mode t)
  '(custom-safe-themes (quote ("20f9c36dea110eb7c9ef197891fccaf54f9c6fa4c594df45c5d41f4f002f36fb" default)))
  '(delete-selection-mode t nil (delsel))
@@ -72,6 +71,9 @@
  '(woman-fill-frame t)
  '(xterm-mouse-mode t))
 
+;; Font
+(set-default-font "Source Code Pro-9")
+
 ;; Start the emacs server needed by the emacsclient
 (server-start)
 
@@ -84,9 +86,6 @@
 (global-set-key [mouse-5] '(lambda ()
                              (interactive)
                              (scroll-up 1)))
-
-;; Font
-(set-default-font "Source Code Pro-9")
 
 ;; Spell
 (if (file-readable-p "/usr/bin/enchant")
@@ -107,16 +106,26 @@
 (add-hook 'text-mode-hook 'ispell-minor-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
-;; ladebug
-(if (file-readable-p "~/.emacs.d/listp/ladebug.el")
-    (load-library "ladebug"))
+;; List variables
+(eval-after-load "grep"
+  '(add-to-list 'grep-files-aliases '("pc" . "*.pc *.pcpp"))
+  )
+
+(eval-after-load "find-file"
+  '(progn 
+     (add-to-list 'cc-other-file-alist '("\\.pc\\'" (".h")))
+     (add-to-list 'cc-other-file-alist '("\\.pcpp\\'" (".hpp" ".h")))
+     ))
 
 ;; packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; My Functions
+;; ladebug
+(if (file-readable-p "~/.emacs.d/listp/ladebug.el")
+    (load-library "ladebug"))
 
+;; Modes
 (define-generic-mode
   'note-history-mode  ;; name of the mode to create
   nil                 ;; comments
@@ -127,6 +136,8 @@
   nil                ;; other functions to call
   "Note History mode" ;; doc string for this mode
 )
+
+;; Functions
 
 (defun bscs-update ()
   "Update BSCS related configurations."
