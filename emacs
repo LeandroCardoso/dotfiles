@@ -205,8 +205,8 @@ With optinal arg n, duplicate n times"
   (or n (setq n 1))
   (save-excursion
     (kill-ring-save (line-beginning-position) (line-beginning-position 2))
-    (forward-line)
     (while (> n 0)
+      (forward-line)
       (yank)
       (setq n (1- n)))))
 
