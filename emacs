@@ -108,7 +108,18 @@
 
 ;; List variables
 (eval-after-load "grep"
-  '(add-to-list 'grep-files-aliases '("pc" . "*.pc *.pcpp")))
+  '(progn
+     ;; delete the default c/c++ aliases
+     (assq-delete-all (car(assoc "ch" grep-files-aliases)) grep-files-aliases)
+     (assq-delete-all (car(assoc "c" grep-files-aliases)) grep-files-aliases)
+     (assq-delete-all (car(assoc "cc" grep-files-aliases)) grep-files-aliases)
+     (assq-delete-all (car(assoc "cchh" grep-files-aliases)) grep-files-aliases)
+     (assq-delete-all (car(assoc "hh" grep-files-aliases)) grep-files-aliases)
+     (assq-delete-all (car(assoc "h" grep-files-aliases)) grep-files-aliases)
+     ;; add my aliases
+     (add-to-list 'grep-files-aliases '("h" . "*.h *.hpp"))
+     (add-to-list 'grep-files-aliases '("c" . "*.c *.cpp *.pc *.pcpp"))
+     (add-to-list 'grep-files-aliases '("ch" . "*.h *.hpp *.c *.cpp *.pc *.pcpp"))))
 
 (eval-after-load "find-file"
   '(progn 
