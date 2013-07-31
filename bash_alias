@@ -60,17 +60,17 @@ alias fdf="find . -follow -type f -name"
 alias fdd="find . -follow -type d -name"
 alias findd="find . -follow -type d"
 alias findf="find .  -follow -type f"
-alias findimpl="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp'"
-alias findhdr="find . -follow -name '*.h' -o -name '*.hpp'"
-alias findsrc="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp'"
+alias findc="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp'"
+alias findh="find . -follow -name '*.h' -o -name '*.hpp'"
+alias findch="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp'"
 alias findmake="find . -follow -name '[Mm]ake*'"
 
 # grep alias
 alias grepi="grep -i"
 alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
-alias grepimpl="findimpl | xgrep -nH"
-alias grephdr="findhdr | xgrep -nH"
-alias grepsrc="findsrc | xgrep -nH"
+alias grepc="findimpl | xgrep -nH"
+alias greph="findhdr | xgrep -nH"
+alias grepch="findsrc | xgrep -nH"
 alias grepmake="findmake | xgrep -nH"
 
 
