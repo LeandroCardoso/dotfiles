@@ -25,11 +25,12 @@
  '(ediff-split-window-function (quote split-window-horizontally))
  '(electric-indent-mode t)
  '(electric-pair-mode t)
+ '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode ac-emacs-lisp-mode-setup)))
  '(fill-column 120)
  '(global-auto-complete-mode t)
  '(global-auto-revert-mode t)
  '(global-font-lock-mode t nil (font-lock))
- '(global-hl-line-mode t nil (hl-line))
+ '(global-hl-line-mode t)
  '(global-semantic-idle-summary-mode t)
  '(global-subword-mode t)
  '(hi-lock-mode t t (hi-lock))
@@ -37,6 +38,7 @@
  '(ido-decorations (quote (" { " " }" " | " " | ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
  '(ido-everywhere t)
  '(ido-save-directory-list-file "~/.emacs.d/ido.last")
+ '(ielm-mode-hook (quote (turn-on-eldoc-mode)))
  '(indent-tabs-mode nil)
  '(initial-buffer-choice nil)
  '(initial-scratch-message nil)
@@ -44,6 +46,7 @@
  '(ispell-silently-savep t)
  '(jit-lock-stealth-time 1)
  '(kill-ring-max 300)
+ '(lisp-interaction-mode-hook (quote (turn-on-eldoc-mode)))
  '(locate-make-command-line (quote my-locate-command-line))
  '(make-backup-files nil)
  '(menu-bar-mode nil)
@@ -101,6 +104,7 @@
 (add-to-list 'auto-mode-alist '("make.*"     . makefile-mode))
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
 (add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
+(add-to-list 'auto-mode-alist '("emacs" . emacs-lisp-mode))
 
 ;; Hooks
 (add-hook 'text-mode-hook 'ispell-minor-mode)
@@ -225,6 +229,7 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "C-M-q") 'smart-indent) ;; default is indent-pp-sexp
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
+(global-set-key (kbd "C-c d") 'duplicate-line)
 
 (global-set-key (kbd "ESC [ d") 'backward-word) ;; ctrl left
 (global-set-key (kbd "ESC [ c") 'forward-word) ;; ctrl right
