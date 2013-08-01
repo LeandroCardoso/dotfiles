@@ -27,6 +27,9 @@ done
 
 unset newpath
 
+# The oracle login.sql is here
+export SQLPATH=$HOME/.sql
+
 export SHELL=$(which bash)
 
 [[ -z $PS1 ]] && return
