@@ -230,6 +230,7 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
 (global-set-key (kbd "ESC [ d") 'backward-word) ;; ctrl left
 (global-set-key (kbd "ESC [ c") 'forward-word) ;; ctrl right
