@@ -182,6 +182,7 @@ uname -a
 uptime
 echo Bash Version: $BASH_VERSION
 echo Bash Completion: $(basename $BASH_COMPLETION)
+echo Emacs Version: $(emacs --version | head -n 1)
 echo Term: $TERM
 echo Lang: $LC_ALL
 screen_title
