@@ -87,6 +87,33 @@ if [[ $HOSTNAME == arizona ]]; then
     alias ctdiff='cleartool diff -col $COLUMNS -options -b'
     alias ctdiffgpre="cleartool diff -g -pre"
 
+    _ctmksnap()
+    {
+        if [[ $COMP_CWORD != 1 ]]; then
+            return
+        fi
+
+        local releases="bscs_5.23_ bscs_6.00_ bscs_7.00_ bscs_8.01_ bscs_ix_ bscsix_r2_ bscsix_r3 cbio_r2.1_ cbio_r2.2_"
+
+        local cur="${COMP_WORDS[$COMP_CWORD]}"
+        local opts
+        local opt
+
+        for opt in $releases; do
+            if [[ $cur ]]; then
+                if [[ ${USER}_${opt} == *$cur* ]]; then
+                    opts="$opts ${USER}_${opt}"
+                fi
+            else
+                opts="$opts ${USER}_${opt}"
+            fi
+        done
+
+        COMPREPLY=($(compgen -W "${opts}"))
+    }
+
+    complete -o nospace -F _ctmksnap ctmksnap
+
     ctmksnap()
     {
         if [ -z "$1" ]; then
