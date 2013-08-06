@@ -201,6 +201,126 @@ setbscs()
     alias mketags="find $MAIN/src -follow \( -path $MAIN/src/udrlib/st -o -path $MAIN/src/udrlib/mt \) -prune -o \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \) -print0 | xargs -0 etags -o - | gzip > $MAIN/src/TAGS.gz"
 }
 
+_mkbscs()
+{
+    if [[ $COMP_CWORD != 1 ]]; then
+        return
+    fi
+
+    local releases="bscs_5.23_ bscs_6.00_ bscs_7.00_ bscs_8.01_ bscs_ix_ bscsix_r2_ bscsix_r3 cbio_r2.1_ cbio_r2.2_"
+
+    local cur="${COMP_WORDS[$COMP_CWORD]}"
+    local opts
+    local opt
+
+    if [[ $cur ]]; then
+        for opt in $releases; do
+            if [[ $opt == *$cur* ]]; then
+                opts="$opts $opt"
+            fi
+        done
+    else
+        opts=$releases
+    fi
+
+    COMPREPLY=($(compgen -W "${opts}"))
+}
+
+complete -o nospace -F _mkbscs mkbscs
+
+mkbscs()
+{
+    if [[ $# != 1 ]]; then
+        echo "Usage: mkbscs <release>"
+        return
+    fi
+
+    local RELEASEPATH="$HOME/release/$1"
+    if [[ ! -e $RELEASEPATH ]]; then
+        mkdir $RELEASEPATH
+    fi
+    touch $RELEASEPATH
+
+    local RELEASE=$(echo $RELEASEPATH | sed "s/.*\///")
+
+    # Automatic set BSCS version
+    local BSCS_VERSION
+    
+    if [[ $RELEASE == *bscs_5.23* ]]; then
+        BSCS_VERSION=5
+    elif [[ $RELEASE == *bscs600* || $RELEASE == *bscs_6.00* ]]; then
+        BSCS_VERSION=6
+    elif [[ $RELEASE == *bscs_7.00* ]]; then
+        BSCS_VERSION=7
+    elif [[ $RELEASE == *bscs_8.01* ]]; then
+        BSCS_VERSION=8
+    elif [[ $RELEASE == *havana* || $RELEASE == *bscs_ix_* ]]; then
+        BSCS_VERSION=havana
+    elif [[ $RELEASE == *istanbul* || $RELEASE == *bscsix_r2_* ]]; then
+        BSCS_VERSION=istanbul
+    elif [[ $RELEASE == *jerez* || $RELEASE == *bscsix_r3_* ]]; then
+        BSCS_VERSION=jerez
+    elif [[ $RELEASE == *kiev* || $RELEASE == *cbio_r2.1* || $RELEASE == *cbio_r2.2* ]]; then
+        BSCS_VERSION=kiev
+    else
+        # Manual set BSCS version
+        echo Could not detect BSCS version
+        echo Select BSCS version
+        select BSCS_VERSION in 5 6 7 8 havana istanbul jerez kiev; do
+            if [[ -n $BSCS_VERSION ]]; then
+                break
+            fi
+            echo Invalid Option. Type again
+        done
+    fi
+    echo $BSCS_VERSION > "$RELEASEPATH/version"
+
+    # Define VOB
+    local VOB
+
+    case $BSCS_VERSION in
+        "5")
+            if [[ $RELEASE == *bscs_5.23_cml* ]]; then
+                VOB="lan_cml"
+            else
+                VOB="nam_next"
+            fi
+            ;;
+        "6")
+            VOB=sbu_bscs
+            ;;
+        "7" | "8")
+            if [[ $RELEASE == *tpr* ]]; then
+                VOB=bscs7_atl
+            else
+                VOB=but_bscs
+            fi
+            ;;
+        "havana" | "istanbul")
+            VOB=bsst_main
+            ;;
+        "jerez" | "kiev")
+            VOB=lhsj_main
+            ;;
+        *)
+            echo Invalid BSCS Version: $BSCS_VERSION
+            return 1
+            ;;
+    esac
+
+    # Set VIEW
+    ln -s "${HOME}/views/${USER}_${RELEASE}/" "${RELEASEPATH}/view"
+
+    # Set MAIN
+    ln -s "${HOME}/views/${USER}_${RELEASE}/vobs/${VOB}/bscs" "${RELEASEPATH}/main"
+
+    # set SRC
+    ln -s "${HOME}/views/${USER}_${RELEASE}/vobs/${VOB}/bscs/batch/src" "${RELEASEPATH}/src"
+
+    # SET WORK
+    ln -s "${HOME}/work/${RELEASE}" "${RELEASEPATH}/work"
+}
+
 setshm()
 {
     echo Set Shared Memory to default settings
