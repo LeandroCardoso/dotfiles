@@ -109,6 +109,8 @@
 ;; Hooks
 (add-hook 'text-mode-hook 'ispell-minor-mode)
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'prog-mode-hook 'yas-minor-mode)
+(add-hook 'text-mode-hook 'yas-minor-mode)
 
 ;; List variables
 (eval-after-load "grep"
@@ -281,8 +283,7 @@ With optinal arg n, duplicate n times"
       (require 'auto-complete-config)
       (ac-config-default)
       (global-semantic-idle-local-symbol-highlight-mode)
-      (ido-mode t)
-      (yas-global-mode t)))
+      (ido-mode t)))
 
 (if (<= emacs-major-version 23)
     (progn
