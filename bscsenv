@@ -6,31 +6,32 @@ export LOCK_CFG_KEY=0x00ff5656
 
 _setpn()
 {
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    local pre="${COMP_WORDS[COMP_CWORD-1]}"
+    if [[ $COMP_CWORD != 1 ]]; then
+        return
+    fi
+
+    local cur="${COMP_WORDS[$COMP_CWORD]}"
     local opts
 
-    if [[ $COMP_CWORD > 1 ]]; then
-        opts=$(ls $HOME/pn | grep $pre)
+    if [[ $cur ]]; then
+        opts=$(ls $HOME/pn | grep $cur)
     else
         opts=$(ls $HOME/pn)
     fi
 
-    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    COMPREPLY=($(compgen -W "${opts}"))
 }
 
 complete -F _setpn setpn
 
 setpn()
 {
-    local last=${@:$#}
-
-    if [[ -z $last || ! -d $HOME/pn/$last ]]; then
+    if [[ $# != 1 || ! -d $HOME/pn/$1 ]]; then
         echo "Usage: setpn [filter] <pn>"
         return
     fi
 
-    export PNPATH=$HOME/pn/$last
+    export PNPATH=$HOME/pn/$1
     touch $PNPATH
 
     if [[ ! -e $PNPATH/dsm ]]; then
@@ -113,31 +114,32 @@ setcdpath()
 
 _setbscs()
 {
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    local pre="${COMP_WORDS[COMP_CWORD-1]}"
+    if [[ $COMP_CWORD != 1 ]]; then
+        return
+    fi
+
+    local cur="${COMP_WORDS[$COMP_CWORD]}"
     local opts
 
-    if [[ $COMP_CWORD > 1 ]]; then
-        opts=$(ls $HOME/release | grep $pre)
+    if [[ $cur ]]; then
+        opts=$(ls $HOME/release | grep $cur)
     else
         opts=$(ls $HOME/release)
     fi
 
-    COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+    COMPREPLY=($(compgen -W "${opts}"))
 }
 
 complete -F _setbscs setbscs
 
 setbscs()
 {
-    local last=${@:$#}
-    
-    if [[ -z $last || ! -d $HOME/release/$last ]]; then
+    if [[ $# != 1 || ! -d $HOME/release/$1 ]]; then
         echo "Usage: setbscs [filter] <release>"
         return
     fi
 
-    export RELEASEPATH=$HOME/release/$last
+    export RELEASEPATH=$HOME/release/$1
     touch $RELEASEPATH
 
     export RELEASE=$(basename $RELEASEPATH)
