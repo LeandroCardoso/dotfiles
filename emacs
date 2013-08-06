@@ -25,7 +25,7 @@
  '(ediff-split-window-function (quote split-window-horizontally))
  '(electric-indent-mode t)
  '(electric-pair-mode t)
- '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode ac-emacs-lisp-mode-setup)))
+ '(emacs-lisp-mode-hook (quote (turn-on-eldoc-mode)))
  '(fill-column 120)
  '(global-auto-complete-mode t)
  '(global-auto-revert-mode t)
@@ -228,6 +228,7 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "C-M-\\") 'smart-indent) ;; default is indent-region
 (global-set-key (kbd "C-M-q") 'smart-indent) ;; default is indent-pp-sexp
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
+(global-set-key (kbd "C-c k") 'kill-whole-line)
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'duplicate-line)
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
