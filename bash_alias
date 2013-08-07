@@ -30,7 +30,7 @@ alias untar="tar -xf"
 alias wcl="wc -l"
 which zcat &>/dev/null || alias zcat="gzip -dc"
 
-if [[ $TERM == eterm* || $TERM == dumb ]]; then
+if [[ $EMACS ]]; then
     alias emacs="emacsclient -n"
 else
     alias emacs="emacs -nw"
