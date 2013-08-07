@@ -68,9 +68,9 @@ alias findmake="find . -follow -name '[Mm]ake*'"
 # grep alias
 alias grepi="grep -i"
 alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
-alias grepc="findimpl | xgrep -nH"
-alias greph="findhdr | xgrep -nH"
-alias grepch="findsrc | xgrep -nH"
+alias grepc="findc | xgrep -nH"
+alias greph="findh | xgrep -nH"
+alias grepch="findch | xgrep -nH"
 alias grepmake="findmake | xgrep -nH"
 
 
