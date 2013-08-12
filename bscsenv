@@ -186,6 +186,7 @@ setbscs()
     alias cdconf="cd $BSCS_WORKDIR/CONF"
     alias lsctrl="ls $BSCS_WORKDIR/CTRL"
     alias rmctrl="rm $BSCS_WORKDIR/CTRL/*"
+    alias rmfgctrl="rm $BSCS_WORKDIR/FG_CTRL/*"
     alias lslog="ls $BSCS_WORKDIR/LOG"
     alias rmlog="rm $BSCS_WORKDIR/LOG/*"
     alias rmmp="find $BSCS_WORKDIR/MP/ -type f | xargs rm"
