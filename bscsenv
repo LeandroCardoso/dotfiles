@@ -552,7 +552,7 @@ unsetpurify()
     echo Unsetting Purify
     unset USE_PURIFY
     unset PURIFYDIR
-    unset PURIFYOPTIONS="-log-file=purify.log -follow-child-processes=yes -verbose=yes -inuse_at_exit=yes -optimize-save-o7=no"
+    unset PURIFYOPTIONS
     export PATH=$OLDPATH
     unalias cdbinpurify
     unalias cdlibpurify
