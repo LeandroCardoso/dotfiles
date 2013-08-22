@@ -73,6 +73,16 @@ alias greph="findh | xgrep -nH"
 alias grepch="findch | xgrep -nH"
 alias grepmake="findmake | xgrep -nH"
 
+# Date converter functions
+date2unix()
+{
+    TZ=UTC date +%s -d"$*"
+}
+
+date2human()
+{
+    TZ=UTC date -d @$@
+}
 
 # Cleartool alias
 if [[ $HOSTNAME == arizona ]]; then
