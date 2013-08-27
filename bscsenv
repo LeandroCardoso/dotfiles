@@ -27,7 +27,7 @@ complete -F _setpn setpn
 setpn()
 {
     if [[ $# != 1 || ! -d $HOME/pn/$1 ]]; then
-        echo "Usage: setpn [filter] <pn>"
+        echo "Usage: setpn <pn>"
         return
     fi
 
@@ -135,7 +135,7 @@ complete -F _setbscs setbscs
 setbscs()
 {
     if [[ $# != 1 || ! -d $HOME/release/$1 ]]; then
-        echo "Usage: setbscs [filter] <release>"
+        echo "Usage: setbscs <release>"
         return
     fi
 
