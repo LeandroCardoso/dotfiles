@@ -182,7 +182,7 @@ uname -a
 uptime
 echo Bash Version: $BASH_VERSION
 echo Bash Completion: $(basename $BASH_COMPLETION)
-echo Emacs Version: $(emacs --version 2>/dev/null | head -n 1)
+#echo Emacs Version: $(emacs --version 2>/dev/null | head -n 1) # Bugged in HP-SUX
 echo Term: $TERM
 echo Lang: $LC_ALL
 screen_title
