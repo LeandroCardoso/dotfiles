@@ -202,6 +202,14 @@ setbscs()
     alias mketags="find $MAIN/src -follow \( -path $MAIN/src/udrlib/st -o -path $MAIN/src/udrlib/mt \) -prune -o \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \) -print0 | xargs -0 etags -o - | gzip > $MAIN/src/TAGS.gz"
 }
 
+fixbscs5()
+{
+    if [[ $RELEASE == *bscs_5.23* && -d $RELEASEPATH/main && ! -e $RELEASEPATH/main/batch ]]; then
+        echo ln -s $RELEASEPATH/main/usa/batch/ $RELEASEPATH/main/batch
+        ln -s $RELEASEPATH/main/usa/batch/ $RELEASEPATH/main/batch
+    fi
+}
+
 _mkbscs()
 {
     if [[ $COMP_CWORD != 1 ]]; then
