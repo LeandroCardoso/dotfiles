@@ -76,11 +76,10 @@ rev=$(tput rev)          # reverse
 
 # Prompt
 # export PS1="\h:\j \w:\$ "
-# These machines do not support color prompt :-(
-if [[ $(uname -s) == HP-UX || $(uname -s) == AIX ]]; then
-    export PS1="\[$rev\]\h:\j \w:\[$bold\]\$\[$reset\] "
-else
+if [[ $(uname -s) == Linux || $(uname -s) == SunOS ]]; then
     export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
+else # These machines do not support color prompt :-(
+    export PS1="\[$rev\]\h:\j\[$reset\] \w:\[$bold\]\$\[$reset\] "
 fi
 
 # grep with color (linux)
