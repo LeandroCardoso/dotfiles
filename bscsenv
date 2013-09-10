@@ -204,9 +204,15 @@ setbscs()
 
 fixbscs5()
 {
-    if [[ $RELEASE == *bscs_5.23* && -d $RELEASEPATH/main && ! -e $RELEASEPATH/main/batch ]]; then
-        echo ln -s $RELEASEPATH/main/usa/batch/ $RELEASEPATH/main/batch
-        ln -s $RELEASEPATH/main/usa/batch/ $RELEASEPATH/main/batch
+    if [[ $RELEASE == *bscs_5.23* && -d $RELEASEPATH/main ]]; then
+        if [[ ! -e $RELEASEPATH/main/batch ]]; then
+            echo ln -s $RELEASEPATH/main/usa/batch/kernel $RELEASEPATH/main/batch
+            ln -s $RELEASEPATH/main/usa/batch/kernel $RELEASEPATH/main/batch
+        fi
+        if [[ ! -e $RELEASEPATH/main/batch/kernel ]]; then
+            echo ln -s $RELEASEPATH/main/batch $RELEASEPATH/main/batch/kernel
+            ln -s $RELEASEPATH/main/batch $RELEASEPATH/main/batch/kernel
+        fi
     fi
 }
 
@@ -449,7 +455,7 @@ setprofile()
         return 1
     fi
 
-    cd ${MAIN}/..
+    cd ${RELEASEPATH}/main/
     local PROFILE="bin/profile"
 
     if [[ ! -f $PROFILE ]]; then
