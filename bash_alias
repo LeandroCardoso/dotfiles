@@ -39,8 +39,7 @@ alias emc="emacs"
 alias emcc="emacsclient -n"
 
 # ls alias
-# Try to guess if color is supported
-if $(ls --color &>/dev/null); then
+if [[ $(uname -s) == Linux || $(uname -s) == AIX ]]; then
     alias ls="ls -F -T 0 -N --color=auto"
 else
     alias ls="ls -F"
