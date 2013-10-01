@@ -83,7 +83,7 @@
 ;; xterm mouse support
 (require 'mouse)
 (defun track-mouse (e))
-(global-set-key [mouse-4]'(lambda ()
+(global-set-key [mouse-4] '(lambda ()
                              (interactive)
                              (scroll-down 1)))
 (global-set-key [mouse-5] '(lambda ()
@@ -111,6 +111,22 @@
 (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 (add-hook 'prog-mode-hook 'yas-minor-mode)
 (add-hook 'text-mode-hook 'yas-minor-mode)
+
+;; defadvice
+(defadvice find-tag (after find-tag-and-reposition-window)
+  "Reposition window after find a tag"
+  (reposition-window))
+
+(defadvice find-tag-other-window (after find-tag-and-reposition-window)
+  "Reposition window after find a tag"
+  (reposition-window))
+
+(ad-activate 'find-tag)
+(ad-activate 'find-tag-other-window)
+
+;; yasnippet
+(eval-after-load "yasnippet"
+  '(yas-reload-all))
 
 ;; List variables
 (eval-after-load "grep"
@@ -192,88 +208,42 @@ Position the cursor at its beginning, according to the current mode."
     (mark-defun)
     (indent-region (region-beginning) (region-end))))
 
-(defun smart-indent ()
-  "Indent a region if selected, otherwise the sexp."
-  (interactive)
-  (save-excursion
-    (if (region-active-p)
-        (progn
-          (indent-region (region-beginning) (region-end))
-          (message "Indented selected region."))
-      (progn
-        (indent-pp-sexp ())
-        (message "Indented sexp.")))))
-
 (defun duplicate-line (&optional n)
   "Duplicate the current line
 With optinal arg n, duplicate n times"
   (interactive "*^P")
   (or n (setq n 1))
+  (setq count n)
   (save-excursion
-    (kill-ring-save (line-beginning-position) (line-beginning-position 2))
-    (forward-line)
-    (while (> n 0)
-      (yank)
-      (setq n (1- n)))))
+    (setq line (buffer-substring (point-at-bol) (point-at-eol)))
+    (end-of-line)
+    (while (> count 0)
+      (newline)
+      (insert line)
+      (setq count (1- count))))
+  (next-line n))
 
 ;; Key binds
-(global-set-key (kbd "ESC g g") 'goto-line) ;; default in emacs 22
-(global-set-key (kbd "ESC g ESC g") 'goto-line) ;; default in emacs 22
-(global-set-key (kbd "ESC o") 'ff-find-other-file)
-(global-set-key (kbd "ESC /") 'hippie-expand) ;; default is dabbrev-expand
-(global-set-key (kbd "C-c ESC /") 'complete-tag) ;; ALT ENTER
-(global-set-key (kbd "ESC ?") 'tags-search)
+(global-set-key (kbd "M-g M-g") 'goto-line) ;; default in emacs 22
+(global-set-key (kbd "M-g g") 'goto-line) ;; default in emacs 22
+(global-set-key (kbd "M-o") 'ff-find-other-file)
+(global-set-key (kbd "M-/") 'hippie-expand) ;; default is dabbrev-expand
+(global-set-key (kbd "M-?") 'tags-search)
 (global-set-key (kbd "C-x C-b") 'bs-show) ;; default is list-buffers
-(global-set-key (kbd "C-c C-r") 'revert-buffer)
 (global-set-key (kbd "RET") 'newline-and-indent) ;; default is newline
-(global-set-key (kbd "ESC RET") 'smart-newline-and-indent) ;; ALT ENTER
-(global-set-key (kbd "C-M-\\") 'smart-indent) ;; default is indent-region
-(global-set-key (kbd "C-M-q") 'smart-indent) ;; default is indent-pp-sexp
+(global-set-key (kbd "M-RET") 'smart-newline-and-indent) ;; ALT ENTER
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
 (global-set-key (kbd "C-c k") 'kill-whole-line)
 (global-set-key (kbd "C-c C-d") 'duplicate-line)
 (global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "C-c C-r") 'revert-buffer)
+(global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
-(global-set-key (kbd "ESC [ d") 'backward-word) ;; ctrl left
-(global-set-key (kbd "ESC [ c") 'forward-word) ;; ctrl right
-(global-set-key (kbd "ESC <left>") 'backward-word) ;; alt left
-(global-set-key (kbd "ESC <right>") 'forward-word) ;; alt right
-(global-set-key (kbd "ESC ESC [ d") 'backward-sexp) ;; ctrl alt left
-(global-set-key (kbd "ESC ESC [ c") 'forward-sexp) ;; ctrl alt right
-
-(global-set-key (kbd "ESC [ A") 'backward-to-indentation) ;; ctrl up
-(global-set-key (kbd "ESC [ B") 'forward-to-indentation) ;; ctrl down
-(global-set-key (kbd "ESC <up>") 'backward-paragraph) ;; alt up
-(global-set-key (kbd "ESC <down>") 'forward-paragraph) ;; alt down
-(global-set-key (kbd "ESC ESC [ a") 'backward-sentence) ;; ctrl alt up
-(global-set-key (kbd "ESC ESC [ b") 'forward-sentence) ;; ctrl alt down
-
-(global-set-key (kbd "<insertchar>") 'overwrite-mode)
-;;(global-set-key (kbd "ESC <insertchar>") ')
-(global-set-key (kbd "ESC <deletechar>") 'kill-word)
-(global-set-key (kbd "ESC <home>") 'beginning-of-buffer)
-(global-set-key (kbd "ESC <end>") 'end-of-buffer)
-(global-set-key (kbd "ESC <prior>") 'scroll-other-window-down)
-(global-set-key (kbd "ESC <next>") 'scroll-other-window)
-
-;; Num pad
-(global-set-key (kbd "ESC O p") "0")
-(global-set-key (kbd "ESC O q") "1")
-(global-set-key (kbd "ESC O r") "2")
-(global-set-key (kbd "ESC O s") "3")
-(global-set-key (kbd "ESC O t") "4")
-(global-set-key (kbd "ESC O u") "5")
-(global-set-key (kbd "ESC O v") "6")
-(global-set-key (kbd "ESC O w") "7")
-(global-set-key (kbd "ESC O x") "8")
-(global-set-key (kbd "ESC O y") "9")
-(global-set-key (kbd "ESC O o") "/")
-(global-set-key (kbd "ESC O j") "*")
-(global-set-key (kbd "ESC O m") "-")
-(global-set-key (kbd "ESC O k") "+")
-(global-set-key (kbd "ESC O M") 'newline-and-indent)
-(global-set-key (kbd "ESC O n") ",")
+(global-set-key (kbd "M-<up>") 'backward-sexp)
+(global-set-key (kbd "M-<down>") 'forward-sexp)
+(global-set-key (kbd "<select>") 'move-end-of-line)
+(global-set-key (kbd "ESC <select>") 'end-of-buffer-other-window)
 
 (if (>= emacs-major-version 24)
     (progn
