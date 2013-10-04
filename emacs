@@ -164,7 +164,8 @@
   '(("^=====.*" . 'font-lock-comment-face)
    )
   '("notehistory")    ;; files for which to activate this mode
-  nil                ;; other functions to call
+  ;; other functions to call
+  (toggle-read-only 1) ;;(read-only-mode 1)
   "Note History mode" ;; doc string for this mode
   )
 
@@ -240,8 +241,8 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
 
-(global-set-key (kbd "M-<up>") 'backward-sexp)
-(global-set-key (kbd "M-<down>") 'forward-sexp)
+(global-set-key (kbd "ESC <up>") 'scroll-down-line)
+(global-set-key (kbd "ESC <down>") 'scroll-up-line)
 (global-set-key (kbd "<select>") 'move-end-of-line)
 (global-set-key (kbd "ESC <select>") 'end-of-buffer-other-window)
 
