@@ -58,20 +58,28 @@ alias fd="find . -follow -name"
 alias fdf="find . -follow -type f -name"
 alias fdd="find . -follow -type d -name"
 alias findd="find . -follow -type d"
-alias findf="find .  -follow -type f"
-alias findc="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp'"
-alias findh="find . -follow -name '*.h' -o -name '*.hpp'"
-alias findch="find . -follow -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp'"
+alias findf="find . -follow -type f"
+alias findc="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' \)"
+alias findh="find . -follow \( -name '*.h' -o -name '*.hpp' \)"
+alias findch="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \)"
 alias findmake="find . -follow -name '[Mm]ake*'"
 
 # grep alias
 alias grepi="grep -i"
-alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
-alias grepc="findc | xgrep -nH"
-alias greph="findh | xgrep -nH"
-alias grepch="findch | xgrep -nH"
-alias grepmake="findmake | xgrep -nH"
 
+if [[ $(uname -s) == Linux ]]; then
+    alias xgrep='GREP_OPTIONS="--color=always" xargs -0 grep -0'
+    alias grepc="findc -print0 | xgrep -nH"
+    alias greph="findh -print0 | xgrep -nH"
+    alias grepch="findch -print0 | xgrep -nH"
+    alias grepmake="findmake -print0 | xgrep -nH"
+else
+    alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
+    alias grepc="findc | xgrep -nH"
+    alias greph="findh | xgrep -nH"
+    alias grepch="findch | xgrep -nH"
+    alias grepmake="findmake | xgrep -nH"
+fi
 # Date converter functions
 date2unix()
 {
