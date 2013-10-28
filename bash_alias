@@ -59,9 +59,9 @@ alias fdf="find . -follow -type f -name"
 alias fdd="find . -follow -type d -name"
 alias findd="find . -follow -type d"
 alias findf="find . -follow -type f"
-alias findc="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' \)"
+alias findc="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' \) ! -name '*.ora.c' ! -name '(*.ora.cpp)'"
 alias findh="find . -follow \( -name '*.h' -o -name '*.hpp' \)"
-alias findch="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \)"
+alias findch="find . -follow \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \) ! -name '*.ora.c' ! -name '(*.ora.cpp)'"
 alias findmake="find . -follow -name '[Mm]ake*'"
 
 # grep alias
