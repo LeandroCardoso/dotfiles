@@ -19,7 +19,7 @@ for newpath in /usr/ucb /usr/local/bin $HOME/bin/* $HOME/bin; do
 done
 
 # Add local MANPATH
-for newpath in $HOME/opt/$(uname -s)-$(uname -m)/man $HOME/opt/$(uname -s)-$(uname -m)/*/share/man; do
+for newpath in $HOME/opt/$(uname -s)-$(uname -m)/man $HOME/opt/$(uname -s)-$(uname -m)/*/share/man /usr/man/; do
     if [[ -d $newpath && ":$MANPATH:" != *:$newpath:* ]]; then
         export MANPATH=$newpath:$MANPATH
     fi
