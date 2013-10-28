@@ -515,8 +515,8 @@ setprofile()
     # BSCS
     alias cdbin="cd $BSCS_BIN"
     alias cdlib="cd $BSCS_LIB"
-    alias dataq='data --deletequeues'
-    alias dmhs='dmh --shutdown'
+    alias datad='data --deletequeues'
+    alias dmhshutd='dmh --shutdown'
     alias ptehkct='pteh -k -c -t'
     alias xbscsbatch='xbscs -batch -header'
     alias import_oracle='imp LOG=IMP_$BSCSDB.log COMMIT=Y FEEDBACK=1000 ANALYZE=Y RECALCULATE_STATISTICS=Y FULL=Y ROWS=Y CONSTRAINTS=Y GRANTS=Y INDEXES=Y'
