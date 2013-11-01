@@ -33,6 +33,7 @@
  '(global-hl-line-mode t)
  '(global-semantic-idle-summary-mode t)
  '(global-subword-mode t)
+ '(global-undo-tree-mode t)
  '(hi-lock-mode t t (hi-lock))
  '(ido-create-new-buffer (quote always))
  '(ido-decorations (quote (" { " " }" " | " " | ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
@@ -75,7 +76,7 @@
  '(xterm-mouse-mode t))
 
 ;; Font
-(set-default-font "Source Code Pro-9")
+(set-default-font "Source Code Pro-11")
 
 ;; Start the emacs server needed by the emacsclient
 (server-start)
@@ -165,7 +166,7 @@
    )
   '("notehistory")    ;; files for which to activate this mode
   ;; other functions to call
-  (toggle-read-only 1) ;;(read-only-mode 1)
+  ;;(read-only-mode 1)
   "Note History mode" ;; doc string for this mode
   )
 
@@ -209,24 +210,27 @@ Position the cursor at its beginning, according to the current mode."
     (mark-defun)
     (indent-region (region-beginning) (region-end))))
 
-(defun duplicate-line (&optional n)
-  "Duplicate the current line
+(defun duplicate-line-or-region (&optional n)
+  "Duplicate the active region or current line
 With optinal arg n, duplicate n times"
   (interactive "*^P")
   (or n (setq n 1))
   (setq count n)
-  (save-excursion
-    (setq line (buffer-substring (point-at-bol) (point-at-eol)))
-    (end-of-line)
-    (while (> count 0)
-      (newline)
-      (insert line)
-      (setq count (1- count))))
-  (next-line n))
+  (if (use-region-p)
+      (setq buffer (buffer-substring (region-beginning) (region-end)))
+    (setq buffer (buffer-substring (point-at-bol) (point-at-eol))))
+  (end-of-line)
+  (while (> count 0)
+    (newline)
+    (insert buffer)
+    (setq count (1- count))))
 
 ;; Key binds
 (global-set-key (kbd "M-g M-g") 'goto-line) ;; default in emacs 22
 (global-set-key (kbd "M-g g") 'goto-line) ;; default in emacs 22
+(global-set-key (kbd "ESC <prior>") 'scroll-other-window-down) ;; default in emacs 22
+(global-set-key (kbd "ESC <next>") 'scroll-other-window) ;; default in emacs 22
+
 (global-set-key (kbd "M-o") 'ff-find-other-file)
 (global-set-key (kbd "M-/") 'hippie-expand) ;; default is dabbrev-expand
 (global-set-key (kbd "M-?") 'tags-search)
@@ -235,8 +239,8 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "M-RET") 'smart-newline-and-indent) ;; ALT ENTER
 (global-set-key (kbd "C-c C-k") 'kill-whole-line)
 (global-set-key (kbd "C-c k") 'kill-whole-line)
-(global-set-key (kbd "C-c C-d") 'duplicate-line)
-(global-set-key (kbd "C-c d") 'duplicate-line)
+(global-set-key (kbd "C-c C-d") 'duplicate-line-or-region)
+(global-set-key (kbd "C-c d") 'duplicate-line-or-region)
 (global-set-key (kbd "C-c C-r") 'revert-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "C-c SPC") 'ace-jump-mode)
@@ -254,6 +258,7 @@ With optinal arg n, duplicate n times"
       (require 'auto-complete-config)
       (ac-config-default)
       (global-semantic-idle-local-symbol-highlight-mode)
+      (require 'undo-tree)
       (ido-mode t)))
 
 (if (<= emacs-major-version 23)
