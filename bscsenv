@@ -99,13 +99,11 @@ echodatabase()
 
 setcdpath()
 {
-    # The all powerfull "cd everywhere"
-    #export CDPATH=".:$BSCS_WORKDIR:$MAIN/..:$MAIN:$MAIN/src:$MAIN/src/mp:$MAIN/src/rp/rcc/srv/src:$MAIN/src/rp/crc/srv/src"
-
+    # The all powerfull "cd anywhere"
     unset CDPATH
     local newpath
     
-    for newpath in "." "$BSCS_WORKDIR" "$MAIN/.." "$MAIN" "$MAIN/src" "$MAIN/src/mp" "$MAIN/src/mp/fih" "$MAIN/src/mp/fih_k" "$MAIN/src/rp/rcc/srv/src" "$MAIN/src/rp/crc/srv/src" "$SDPX_MAINPATH" "$SDPX_MAINPATH/bsp" "$SDPX_MAINPATH/sdp" "$SDPX_MAINPATH/tmnsdp" "$PNPATH"; do
+    for newpath in "." "$BSCS_WORKDIR" "$MAIN/.." "$MAIN" "$MAIN/src" "$MAIN/src/mp" "$MAIN/src/mp/fih" "$MAIN/src/mp/fih_k" "$MAIN/src/rp/rcc/srv/src" "$MAIN/src/rp/crc/srv/src" "$SDPX_MAINPATH" "$SDPX_MAINPATH/bsp" "$SDPX_MAINPATH/sdp" "$SDPX_MAINPATH/tmnsdp" "$RELEASEPATH" "$PNPATH"; do
         if [[ -d $newpath && ":$CDPATH:" != *:$newpath:* ]]; then
             export CDPATH=$CDPATH:$newpath
         fi
