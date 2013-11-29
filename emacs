@@ -1,3 +1,4 @@
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; It is very funny that I should load the tool-bar, just to immediately disable it
@@ -34,6 +35,7 @@
  '(global-semantic-idle-summary-mode t)
  '(global-subword-mode t)
  '(global-undo-tree-mode t)
+ '(grep-find-template "find -L . <X> -type f <F> -exec grep <C> -nH -e <R> {} +")
  '(hi-lock-mode t t (hi-lock))
  '(ido-create-new-buffer (quote always))
  '(ido-decorations (quote (" { " " }" " | " " | ..." "[" "]" " [No match]" " [Matched]" " [Not readable]" " [Too big]" " [Confirm]")))
@@ -58,6 +60,7 @@
  '(semantic-idle-truncate-long-summaries nil)
  '(semantic-mode t)
  '(show-paren-mode t nil (paren))
+ '(show-paren-style (quote expression))
  '(size-indication-mode t)
  '(sql-input-ring-file-name "~/.emacs.d/sql-history")
  '(sql-password "SYSADM")
@@ -213,7 +216,7 @@ Position the cursor at its beginning, according to the current mode."
 (defun duplicate-line-or-region (&optional n)
   "Duplicate the active region or current line
 With optinal arg n, duplicate n times"
-  (interactive "*^P")
+  (interactive "*p")
   (or n (setq n 1))
   (setq count n)
   (if (use-region-p)
