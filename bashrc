@@ -53,20 +53,20 @@ else
 fi
 
 # grep with color
-GREP_OPTIONS="--color=auto"
+export GREP_OPTIONS="--color=auto"
 
 # long-prompt, ignore-case, colors, quit-at-exit, squeeze-blank-lines and quit-if-one-screen
-LESS="-M -i -R -e -s -F"
+export LESS="-M -i -R -e -s -F"
 
 # man page with colors
 # GROFF_NO_SGR=1 # output ANSI color escape sequences in raw form
-LESS_TERMCAP_mb=$blink$fgred  # blinking
-LESS_TERMCAP_md=$bold$fggreen # bold (headings)
-LESS_TERMCAP_me=$reset        # end mode
-LESS_TERMCAP_se=$reset        # end standout
-LESS_TERMCAP_so=$rev$fgyellow # standout - statusbar/search
-LESS_TERMCAP_ue=$reset        # end underline
-LESS_TERMCAP_us=$fgblue       # underline (paths, keywords)
+export LESS_TERMCAP_mb=$blink$fgred  # blinking
+export LESS_TERMCAP_md=$bold$fggreen # bold (headings)
+export LESS_TERMCAP_me=$reset        # end mode
+export LESS_TERMCAP_se=$reset        # end standout
+export LESS_TERMCAP_so=$rev$fgyellow # standout - statusbar/search
+export LESS_TERMCAP_ue=$reset        # end underline
+export LESS_TERMCAP_us=$fgblue       # underline (paths, keywords)
 
 # Editor
 VISUAL="emacs -nw"
