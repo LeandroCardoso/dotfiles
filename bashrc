@@ -46,7 +46,7 @@ rev=$(tput rev)          # reverse
 
 # Prompt
 # PS1="\u@\h:\j \w:\$ "
-if [ [ $EUID == 0 ]]; then # root
+if [[ $EUID == 0 ]]; then # root
     PS1="\[$fgred\]\u@\h:\j \W\[$bold\]\$\[$reset\] "
 else
     PS1="\[$fggreen\]\u@\h:\j \w\[$bold\]\$\[$reset\] "
