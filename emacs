@@ -156,10 +156,6 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; ladebug
-(if (file-readable-p "~/.emacs.d/listp/ladebug.el")
-    (load-library "ladebug"))
-
 ;; Modes
 (define-generic-mode
   'note-history-mode  ;; name of the mode to create
