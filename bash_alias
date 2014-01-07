@@ -28,7 +28,6 @@ alias emcc="emacsclient -n"
 
 # ls alias
 alias ls="ls -F -T 0 -N --color=auto"
-
 alias l="ls"
 alias ll="ls -l"
 alias la="ls -a"
@@ -55,6 +54,10 @@ alias grepc="findc -print0 | xgrep -nH"
 alias greph="findh -print0 | xgrep -nH"
 alias grepch="findch -print0 | xgrep -nH"
 alias grepmake="findmake -print0 | xgrep -nH"
+
+# xbmc alias
+alias sshxbmc="ssh -l xbmc apollo.local"
+alias wakexbmc="wakeonlan 00:23:54:fa:71:bc"
 
 # Date converter functions
 date2unix()
