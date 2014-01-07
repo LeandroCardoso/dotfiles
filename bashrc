@@ -115,3 +115,5 @@ screen_title()
 # Print misc information
 uname -a
 uptime
+echo
+[[ -x /usr/games/fortune ]] && fortune -ac
