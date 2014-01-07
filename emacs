@@ -103,8 +103,6 @@
         (setq ispell-program-name "/usr/bin/aspell"))))
 
 ;; auto modes
-(add-to-list 'auto-mode-alist '("\\.pc\\'"   . c-mode))
-(add-to-list 'auto-mode-alist '("\\.pcpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("make.*"     . makefile-mode))
 (add-to-list 'auto-mode-alist '("Makefile.*" . makefile-mode))
 (add-to-list 'auto-mode-alist '("make.out"   . compilation-mode))
@@ -144,35 +142,14 @@
      (assq-delete-all (car(assoc "h" grep-files-aliases)) grep-files-aliases)
      ;; add my aliases
      (add-to-list 'grep-files-aliases '("h" . "*.h *.hpp"))
-     (add-to-list 'grep-files-aliases '("c" . "*.c *.cpp *.pc *.pcpp"))
-     (add-to-list 'grep-files-aliases '("ch" . "*.h *.hpp *.c *.cpp *.pc *.pcpp"))))
-
-(eval-after-load "find-file"
-  '(progn 
-     (add-to-list 'cc-other-file-alist '("\\.pc\\'" (".h")))
-     (add-to-list 'cc-other-file-alist '("\\.pcpp\\'" (".hpp" ".h")))))
+     (add-to-list 'grep-files-aliases '("c" . "*.c *.cpp"))
+     (add-to-list 'grep-files-aliases '("ch" . "*.h *.hpp *.c *.cpp"))))
 
 ;; packages
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; Modes
-(define-generic-mode
-  'note-history-mode  ;; name of the mode to create
-  nil                 ;; comments
-  nil                 ;; keywords
-  '(("^=====.*" . 'font-lock-comment-face)
-   )
-  '("notehistory")    ;; files for which to activate this mode
-  ;; other functions to call
-  ;;(read-only-mode 1)
-  "Note History mode" ;; doc string for this mode
-  )
-
 ;; Functions
-(defun my-locate-command-line (search-string)
-  (list locate-command "-d" (concat(getenv "MAIN") "/locate.db") search-string))
-
 (defun smart-newline-and-indent ()
     "Insert an empty line after the current line.
 Position the cursor at its beginning, according to the current mode."
@@ -208,11 +185,6 @@ With optinal arg n, duplicate n times"
     (setq count (1- count))))
 
 ;; Key binds
-(global-set-key (kbd "M-g M-g") 'goto-line) ;; default in emacs 22
-(global-set-key (kbd "M-g g") 'goto-line) ;; default in emacs 22
-(global-set-key (kbd "ESC <prior>") 'scroll-other-window-down) ;; default in emacs 22
-(global-set-key (kbd "ESC <next>") 'scroll-other-window) ;; default in emacs 22
-
 (global-set-key (kbd "M-o") 'ff-find-other-file)
 (global-set-key (kbd "M-/") 'hippie-expand) ;; default is dabbrev-expand
 (global-set-key (kbd "M-?") 'tags-search)
