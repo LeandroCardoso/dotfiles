@@ -116,4 +116,4 @@ screen_title()
 uname -a
 uptime
 echo
-[[ -x /usr/games/fortune ]] && fortune -ac
+[[ -x /usr/games/fortune ]] && fortune -ace
