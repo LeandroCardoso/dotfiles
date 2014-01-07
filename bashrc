@@ -25,7 +25,7 @@ fggreen=$(tput setaf 2)  # Green
 fgyellow=$(tput setaf 3) # Yellow
 fgblue=$(tput setaf 4)   # Blue
 fgpurple=$(tput setaf 5) # Purple
-fgcynan=$(tput setaf 6)  # Cyan
+fgcyan=$(tput setaf 6)   # Cyan
 fgwhite=$(tput setaf 7)  # White
 # Background colors
 bgblack=$(tput setab 0)  # Black
@@ -37,38 +37,37 @@ bgpurple=$(tput setab 5) # Purple
 bgcyan=$(tput setab 6)   # Cyan
 bgwhite=$(tput setab 7)  # White
 # Misc
-reset=$(tput sgr0)      # Text Reset
+reset=$(tput sgr0)
 bold=$(tput bold)
 dim=$(tput dim)
-underline=$(tput smul)   # underline
+underline=$(tput smul)
 blink=$(tput blink)
 rev=$(tput rev)          # reverse
 
 # Prompt
-# PS1="\u@\h:\j \w:\$ "
+# PS1="\u@\h+\j \w:\$ "
 if [[ $EUID == 0 ]]; then # root
-    PS1="\[$fgred\]\u@\h:\j \W\[$bold\]\$\[$reset\] "
+    PS1="\[$fgred\]\u@\h+\j \w\[$bold\]\$\[$reset\] "
 else
-    PS1="\[$fggreen\]\u@\h:\j \w\[$bold\]\$\[$reset\] "
+    PS1="\[$fggreen\]\u@\h+\j \w\[$bold\]\$\[$reset\] "
 fi
 
 # grep with color
 export GREP_OPTIONS="--color=auto"
 
-# long-prompt, ignore-case, colors, quit-at-exit, squeeze-blank-lines and quit-if-one-screen
-export LESS="-M -i -R -e -s -F"
+# long-prompt, ignore-case, colors, quit-at-exit and squeeze-blank-lines
+export LESS="-M -i -R -e -s"
 
 # man page with colors
-# GROFF_NO_SGR=1 # output ANSI color escape sequences in raw form
-export LESS_TERMCAP_mb=$blink$fgred  # blinking
-export LESS_TERMCAP_md=$bold$fggreen # bold (headings)
-export LESS_TERMCAP_me=$reset        # end mode
-export LESS_TERMCAP_se=$reset        # end standout
-export LESS_TERMCAP_so=$rev$fgyellow # standout - statusbar/search
-export LESS_TERMCAP_ue=$reset        # end underline
-export LESS_TERMCAP_us=$fgblue       # underline (paths, keywords)
+export LESS_TERMCAP_mb=$blink$fgred      # blinking
+export LESS_TERMCAP_md=$bold$fggreen     # bold (headings)
+export LESS_TERMCAP_me=$reset            # end mode
+export LESS_TERMCAP_se=$reset            # end standout
+export LESS_TERMCAP_so=$rev$fgyellow     # standout - statusbar
+export LESS_TERMCAP_ue=$reset            # end underline
+export LESS_TERMCAP_us=$underline$fgblue # underline (paths, keywords)
 
-# Editor
+# The one true editor
 VISUAL="emacs -nw"
 EDITOR="emacs -nw"
 
@@ -82,6 +81,7 @@ HISTFILESIZE=$HISTSIZE
 # disable the annoying and useless flow control
 stty -ixon
 stty -ixoff
+
 # checks the window size after each command and, if necessary, updates the values of LINES and COLUMNS
 shopt -s checkwinsize
 # Save multi-line commands in history as single line
@@ -112,8 +112,17 @@ screen_title()
 # My aliases
 [[ -f ~/.bash_alias ]] && . ~/.bash_alias
 
+# Completion
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
 # Print misc information
+echo $fgyellow
 uname -a
 uptime
 echo
 [[ -x /usr/games/fortune ]] && fortune -ace
+echo $reset
