@@ -19,7 +19,7 @@
  '(c-basic-offset 4)
  '(c-offsets-alist (quote ((substatement-open . 0) (case-label . +))))
  '(column-number-mode t)
- '(custom-safe-themes (quote ("20f9c36dea110eb7c9ef197891fccaf54f9c6fa4c594df45c5d41f4f002f36fb" default)))
+ '(custom-safe-themes (quote ("2f80d6ea18d147a6b4e5b54801317b7789531c691edecfa2ab0d2972bee6b36d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "20f9c36dea110eb7c9ef197891fccaf54f9c6fa4c594df45c5d41f4f002f36fb" default)))
  '(delete-selection-mode t nil (delsel))
  '(desktop-enable t nil (desktop))
  '(desktop-path (quote ("." "~/.emacs.d/" "~")))
@@ -174,25 +174,8 @@
   )
 
 ;; Functions
-
-(defun bscs-update ()
-  "Update BSCS related configurations."
-  (interactive)
-  (setq tags-table-list (list (concat (getenv "MAIN") "/src/TAGS.gz")))
-  ;; The first part used to change between the header and implementation files
-  ;; The second part (where the MAIN is used) is used to search for include files
-  (setq cc-search-directories (list "." "include" "*" ".." "../*/*" "../../*/*" "/usr/include" "/usr/local/include/*" (concat (getenv "MAIN") "/src/*/include") (concat (getenv "MAIN") "/src/mp/*/include") (concat (getenv "MAIN") "/src/rp/*/srv/src/*/interface") (concat (getenv "MAIN") "/src/rp/crc/int/Public_Interfaces/includes")))
-  (setq sql-database (getenv "BSCSDB")))
-
-(bscs-update)
-
 (defun my-locate-command-line (search-string)
   (list locate-command "-d" (concat(getenv "MAIN") "/locate.db") search-string))
-
-(defun pn ()
-  "print the PN number from the environment variable PNNUMBER"
-  (interactive)
-  (insert (getenv "PNNUMBER")))
 
 (defun smart-newline-and-indent ()
     "Insert an empty line after the current line.
@@ -253,28 +236,14 @@ With optinal arg n, duplicate n times"
 (global-set-key (kbd "<select>") 'move-end-of-line)
 (global-set-key (kbd "ESC <select>") 'end-of-buffer-other-window)
 
-(if (>= emacs-major-version 24)
-    (progn
-      (package-initialize)
-      (load-theme 'zenburn t)
-      ;; Auto Complete
-      (require 'auto-complete-config)
-      (ac-config-default)
-      (global-semantic-idle-local-symbol-highlight-mode)
-      (require 'undo-tree)
-      (ido-mode t)))
-
-(if (<= emacs-major-version 23)
-    (progn
-      ;; 256 Colors hack to Emacs
-      (load-library "emacs21-256color-hack")
-      (require 'color-theme)
-      (color-theme-initialize)
-      ;;(color-theme-hober)
-      (require 'zenburn)
-      (color-theme-zenburn)
-      (xterm-mouse-mode 1)
-      (mouse-wheel-mode 1)))
+(package-initialize)
+(load-theme 'zenburn t)
+;; Auto Complete
+(require 'auto-complete-config)
+(ac-config-default)
+(global-semantic-idle-local-symbol-highlight-mode)
+(require 'undo-tree)
+(ido-mode t)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -283,4 +252,4 @@ With optinal arg n, duplicate n times"
  ;; If there is more than one, they won't work right.
  '(bold-italic ((t (:inherit (bold italic)))))
  '(italic ((t (:underline t :slant italic))))
- '(woman-italic ((t (:inherit italic)))))
+ '(woman-italic ((t (:inherit italic))) t))

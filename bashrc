@@ -1,48 +1,19 @@
 # Author: Leandro Cardoso
 
-# Extra PATH directories
-
-# Add bin dirs at the beggining
-# /opt/freeware/bin: AIX, must be put in the beginning of the PATH
-for newpath in $HOME/bin/strip /opt/freeware/bin $HOME/opt/$(uname -s)-$(uname -m)/bin $HOME/opt/$(uname -s)-$(uname -m)/*/bin; do
-    if [[ -d $newpath && ":$PATH:" != *:$newpath:* ]]; then
-        export PATH=$newpath:$PATH
-    fi
-done
-
-# Add bin dirs at the end
-# /usr/ucb: SunOS
-for newpath in /usr/ucb /usr/local/bin $HOME/bin/* $HOME/bin; do
+# Add extra PATH directories to the end
+for newpath in $HOME/bin; do
     if [[ -d $newpath && ":$PATH:" != *:$newpath:* ]]; then
         export PATH=$PATH:$newpath
     fi
 done
-
-# Add local MANPATH
-for newpath in $HOME/opt/$(uname -s)-$(uname -m)/man $HOME/opt/$(uname -s)-$(uname -m)/*/share/man /usr/man/; do
-    if [[ -d $newpath && ":$MANPATH:" != *:$newpath:* ]]; then
-        export MANPATH=$newpath:$MANPATH
-    fi
-done
-
 unset newpath
-
-# The oracle login.sql is here
-export SQLPATH=$HOME/.sql
-
-export SHELL=$(which bash)
 
 [[ -z $PS1 ]] && return
 
+export SHELL=$(which bash)
+
 # change TERM to the awesome 256 colors terminal
-export TERMINFO=$HOME/.terminfo
 case "$TERM" in
-    putty*)
-        export TERM=putty-256color
-        ;;
-    screen*)
-        export TERM=screen-256color
-        ;;
     xterm*)
         export TERM=xterm-256color
         ;;
@@ -76,20 +47,16 @@ rev=$(tput rev)          # reverse
 
 # Prompt
 # export PS1="\h:\j \w:\$ "
-if [[ $(uname -s) == Linux || $(uname -s) == SunOS ]]; then
-    export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
-else # These machines do not support color prompt :-(
-    export PS1="\[$rev\]\h:\j\[$reset\] \w:\[$bold\]\$\[$reset\] "
-fi
+export PS1="\[$fggreen\]\h:\j \w:\[$bold\]\$\[$reset\] "
 
-# grep with color (linux)
+# grep with color
 export GREP_OPTIONS="--color=auto"
 
 # long-prompt, ignore-case, colors, quit-at-exit and squeeze-blank-lines
 export LESS="-M -i -R -e -s"
-[[ $(uname -s) == Linux && $(lsb_release -i -s) == RedHat* ]] && export LESS="$LESS -F" # quit-if-one-screen
+export LESS="$LESS -F" # quit-if-one-screen
 
-# man page with colors (linux)
+# man page with colors
 # export GROFF_NO_SGR=1 # output ANSI color escape sequences in raw form
 export LESS_TERMCAP_mb=$blink$fgred  # blinking
 export LESS_TERMCAP_md=$bold$fggreen # bold (headings)
@@ -114,11 +81,7 @@ fi
 
 # Set Time Zone (see tzselect)
 export TZ=America/Sao_Paulo
-#export TZ=Europe/Berlin
-#export TZ=Asia/Kolkata
 
-# fix the backspace key
-stty erase ^?
 # disable the annoying and useless flow control
 stty -ixon
 stty -ixoff
@@ -133,35 +96,14 @@ shopt -s histappend
 shopt -s cmdhist
 # Bash will not attempt to search the PATH for possible completions when completion is attempted on an empty line.
 shopt -s no_empty_cmd_completion
-if (( ${BASH_VERSINFO[0]} >= 4 )); then
-    # attempts spelling correction on directory names during word completion
-    shopt -s dirspell
-    # enable recursive globbing with **
-    shopt -s globstar
-fi
+# attempts spelling correction on directory names during word completion
+shopt -s dirspell
+# enable recursive globbing with **
+shopt -s globstar
 
-# Set Oracle and Perl to run cleartool in arizona
-if [[ $HOSTNAME == arizona && ( -z $ORACLE_HOME || -z $PERL_ROOT ) ]]; then
-    echo Set Oracle
-    . setappx oracle 10.2
-    echo Set Perl
-    . setappx perl 5.8.8
-fi
 
 # Bash Completion
-if (( ${BASH_VERSINFO[0]} == 4 && ${BASH_VERSINFO[1]:0:2} >= 1 )); then
-    [[ -n $BASH_COMPLETION ]] || BASH_COMPLETION=$HOME/bash_completion-2.0
-    [[ -n $BASH_COMPLETION_DIR ]] || BASH_COMPLETION_DIR=$HOME/bash_completion.d-2.0
-    [[ -n $BASH_COMPLETION_COMPAT_DIR ]] || BASH_COMPLETION_COMPAT_DIR=$HOME/bash_completion.d-2.0
-elif  (( (${BASH_VERSINFO[0]} == 2 && ${BASH_VERSINFO[1]:0:2} > 4) || ${BASH_VERSINFO[0]} > 2 )); then
-    [[ -n $BASH_COMPLETION ]] || BASH_COMPLETION=$HOME/bash_completion-1.1
-    [[ -n $BASH_COMPLETION_DIR ]] || BASH_COMPLETION_DIR=$HOME/bash_completion.d-1.1
-    [[ -n $BASH_COMPLETION_COMPAT_DIR ]] || BASH_COMPLETION_COMPAT_DIR=$HOME/bash_completion.d-1.1
-fi
-
-if [[ -r $BASH_COMPLETION ]]; then
-    . $BASH_COMPLETION
-fi
+# ???
 
 screen_title()
 {
@@ -173,28 +115,8 @@ screen_title()
 
 # My aliases
 [[ -e $HOME/.bash_alias ]] && . $HOME/.bash_alias
-[[ -e $HOME/.bscsenv ]] && . $HOME/.bscsenv
 
 # Print misc information
-echo
 uname -a
 uptime
-echo Bash Version: $BASH_VERSION
-echo Bash Completion: $(basename $BASH_COMPLETION)
-#echo Emacs Version: $(emacs --version 2>/dev/null | head -n 1) # Bugged in HP-SUX
-echo Term: $TERM
-echo Lang: $LC_ALL
-screen_title
-echo ${fggreen}Color Test${reset}
-ipcs -a | grep $USER &>/dev/null && echo Shared Memory is being used
-echo
-
-# List screen sessions
-if [[ ! $STY && $SHLVL = 1 && -x /usr/bin/screen ]]; then
-    screen -ls
-fi
-
-# Restore SSH session (useful to agent forward)
-if [[ $STY ]]; then
-    ssh_restore
-fi
+#screen_title

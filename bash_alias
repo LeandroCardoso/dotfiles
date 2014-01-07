@@ -4,31 +4,19 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias d="cd -"
-alias dates="echo -n 'GMT      '; TZ=GMT date; echo -n 'Brasil   '; TZ=America/Sao_Paulo date; echo -n 'Alemanha '; TZ=Europe/Berlin date; echo -n 'India    '; TZ=Asia/Kolkata date"
 alias dirs="dirs -v"
-alias dos2unix_="sed -e 's/\r//'"
 alias dus="du -s *"
 alias duss="du -s * | sort -n"
 alias eg="env | grep -i"
 alias f="fg"
 alias h="history | tail -n $LINES"
 alias hg="history | grep -i"
-alias ipcsa="ipcs -a"
-alias ipcsw="ipcs -a | grep -e $USER -e IPC -e ID"
 alias j="jobs -l"
-alias lstar="tar -tf"
 alias psu='ps -fu $USER'
-alias setcmvc=". setapp cmvc"
-alias setoracle=". setappx oracle"
 alias shlvl="echo $SHLVL"
-alias stripx="chmod -x"
-alias stripxf="find . -type f -exec chmod -x {} \;"
 alias uniqcount="sort | uniq -c | sort -n"
 alias uniqs="sort | uniq"
-alias unix2dos_="sed -e 's/$/\r/'"
-alias untar="tar -xf"
 alias wcl="wc -l"
-which zcat &>/dev/null || alias zcat="gzip -dc"
 
 if [[ $EMACS ]]; then
     alias emacs="emacsclient -n"
@@ -39,11 +27,7 @@ alias emc="emacs"
 alias emcc="emacsclient -n"
 
 # ls alias
-if [[ $(uname -s) == Linux || $(uname -s) == AIX ]]; then
-    alias ls="ls -F -T 0 -N --color=auto"
-else
-    alias ls="ls -F"
-fi
+alias ls="ls -F -T 0 -N --color=auto"
 
 alias l="ls"
 alias ll="ls -l"
@@ -59,27 +43,19 @@ alias fdf="find -L . -type f -name"
 alias fdd="find -L . -type d -name"
 alias findd="find -L . -type d"
 alias findf="find -L . -type f"
-alias findc="find -L . \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' \) ! -name '*.ora.c' ! -name '(*.ora.cpp)'"
+alias findc="find -L . \( -name '*.c' -o -name '*.cpp' \)"
 alias findh="find -L . \( -name '*.h' -o -name '*.hpp' \)"
-alias findch="find -L . \( -name '*.c' -o -name '*.cpp' -o -name '*.pc' -o -name '*.pcpp' -o -name '*.h' -o -name '*.hpp' \) ! -name '*.ora.c' ! -name '(*.ora.cpp)'"
+alias findch="find -L . \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \)"
 alias findmake="find -L . -name '[Mm]ake*'"
 
 # grep alias
 alias grepi="grep -i"
+alias xgrep='GREP_OPTIONS="--color=always" xargs -0 grep -0'
+alias grepc="findc -print0 | xgrep -nH"
+alias greph="findh -print0 | xgrep -nH"
+alias grepch="findch -print0 | xgrep -nH"
+alias grepmake="findmake -print0 | xgrep -nH"
 
-if [[ $(uname -s) == Linux ]]; then
-    alias xgrep='GREP_OPTIONS="--color=always" xargs -0 grep -0'
-    alias grepc="findc -print0 | xgrep -nH"
-    alias greph="findh -print0 | xgrep -nH"
-    alias grepch="findch -print0 | xgrep -nH"
-    alias grepmake="findmake -print0 | xgrep -nH"
-else
-    alias xgrep='GREP_OPTIONS="--color=always" xargs grep'
-    alias grepc="findc | xgrep -nH"
-    alias greph="findh | xgrep -nH"
-    alias grepch="findch | xgrep -nH"
-    alias grepmake="findmake | xgrep -nH"
-fi
 # Date converter functions
 date2unix()
 {
@@ -89,130 +65,4 @@ date2unix()
 date2human()
 {
     TZ=UTC date -d @$@
-}
-
-# Cleartool alias
-if [[ $HOSTNAME == arizona ]]; then
-    alias ct=cleartool
-    alias ctdynamic="cleartool setview cardosol_dynamic_view"
-    alias ctreserve="cleartool lsco -r -s -me -cview | xargs cleartool reserve"
-    alias ctunreserve="cleartool lsco -r -s -me -cview | xargs cleartool unreserve"
-    alias ctlsco="cleartool lsco -r -me -cview"
-    alias ctco="cleartool co -unr -cq"
-    alias ctci="cleartool lsco -r -s -me -cview | xargs cleartool ci -nc"
-    alias ctunco="cleartool lsco -r -s -me -cview | xargs cleartool unco -keep"
-    alias ctdiff='cleartool diff -col $COLUMNS -options -b'
-    alias ctdiffgpre="cleartool diff -g -pre"
-
-    _ctmksnap()
-    {
-        if [[ $COMP_CWORD != 1 ]]; then
-            return
-        fi
-
-        local releases="bscs_5.23_ bscs_6.00_ bscs_7.00_ bscs_8.01_ bscs_ix_ bscsix_r2_ bscsix_r3 cbio_r2.1_ cbio_r2.2_"
-
-        local cur="${COMP_WORDS[$COMP_CWORD]}"
-        local opts
-        local opt
-
-        for opt in $releases; do
-            if [[ $cur ]]; then
-                if [[ ${USER}_${opt} == *$cur* ]]; then
-                    opts="$opts ${USER}_${opt}"
-                fi
-            else
-                opts="$opts ${USER}_${opt}"
-            fi
-        done
-
-        COMPREPLY=($(compgen -W "${opts}"))
-    }
-
-    complete -o nospace -F _ctmksnap ctmksnap
-
-    ctmksnap()
-    {
-        if [ -z "$1" ]; then
-            echo "View name is missing"
-        else
-            echo "Creating view $1"
-            cleartool mkview -snapshot -tag $1 -stgloc views.arizona ~/views/$1
-        fi
-    }
-
-    ctget()
-    {
-        for file in $@; do
-            cleartool get -to ${1//\//_} $1
-        done
-    }
-else
-    alias ct="echo you are not in arizona"
-    alias cleartool="echo you are not in arizona"
-fi
-
-# Display functions
-savedisplay()
-{
-    if [[ -z $DISPLAY ]]; then
-        echo "Error: DISPLAY not set"
-    else
-        echo $DISPLAY
-        echo $DISPLAY > "$HOME/.display"
-    fi
-}
-setdisplay()
-{
-    if [[ $1 ]]; then
-        export DISPLAY=$1
-    else
-        export DISPLAY=$(<"$HOME/.display")
-    fi
-    
-    echo DISPLAY=$DISPLAY
-}
-alias unsetdisplay="unset DISPLAY"
-alias editdisplay="${EDITOR:-emacs} $HOME/.display && setdisplay"
-
-# SSH Connection functions
-ssh_save()
-{
-    local sty=$1
-    
-    if [[ ! $sty && -x /usr/bin/screen ]]; then
-        sty=$(screen -ls | grep Detached | sed 's/\t\(.*\) *(Detached)/\1/')
-    fi
-
-    if [[ ! $sty ]]; then
-        echo No screen found!
-        return 1
-    elif [[ $(wc -w <<<$sty ) > 1 ]]; then
-        echo There are more than one screen session running.
-        screen -ls
-        return 1
-    fi
-
-    if [[ $sty ]]; then
-        echo STY:$sty
-        echo STY $sty >> $HOME/.ssh_connection        
-        echo SSH_CLIENT $SSH_CLIENT >> $HOME/.ssh_connection
-        echo SSH_TTY $SSH_TTY >> $HOME/.ssh_connection
-        echo SSH_AUTH_SOCK $SSH_AUTH_SOCK >> $HOME/.ssh_connection
-        echo SSH_CONNECTION $SSH_CONNECTION >> $HOME/.ssh_connection
-    fi
-}
-
-ssh_restore()
-{
-    local key value sty
-    while read key value; do
-        if [[ $key == STY ]]; then
-            sty="$value"
-        fi
-
-        if [[ $sty == $STY && $key != STY ]]; then
-            export $key="$value"
-        fi
-    done < $HOME/.ssh_connection
 }
