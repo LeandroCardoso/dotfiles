@@ -1,6 +1,3 @@
-
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
 ;; It is very funny that I should load the tool-bar, just to immediately disable it
 (load-library "tool-bar")
 
@@ -211,7 +208,7 @@ With optinal arg n, duplicate n times"
 (ac-config-default)
 (global-semantic-idle-local-symbol-highlight-mode)
 (require 'undo-tree)
-(ido-mode t)))
+(ido-mode t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
