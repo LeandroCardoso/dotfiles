@@ -52,9 +52,6 @@ else
     PS1="\[$fggreen\]\u@\h+\j \w\[$bold\]\$\[$reset\] "
 fi
 
-# grep with color
-export GREP_OPTIONS="--color=auto"
-
 # long-prompt, ignore-case, colors, quit-at-exit and squeeze-blank-lines
 export LESS="-M -i -R -e -s"
 
@@ -98,14 +95,9 @@ shopt -s globstar
 # an empty line.
 shopt -s no_empty_cmd_completion
 
-# make less more friendly for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 screen_title()
 {
     TITLE=${HOSTNAME/\.*/}
-    [[ $CUSTOMER ]] && TITLE="${TITLE}|${CUSTOMER}"
-    [[ $CLEARCASE_ROOT ]] && TITLE="${TITLE}|dynamicCC"
     echo -e "setting screen title: \033k${TITLE}\033\\"
 }
 

@@ -41,23 +41,15 @@ alias lsd="ls -d"
 alias fd="find -L . -name"
 alias fdf="find -L . -type f -name"
 alias fdd="find -L . -type d -name"
-alias findd="find -L . -type d"
-alias findf="find -L . -type f"
-alias findc="find -L . \( -name '*.c' -o -name '*.cpp' \)"
-alias findh="find -L . \( -name '*.h' -o -name '*.hpp' \)"
-alias findch="find -L . \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \)"
-alias findmake="find -L . -name '[Mm]ake*'"
+alias fdfa="find -L . -type f"
+alias fdda="find -L . -type d"
 
 # grep alias
+alias grep="grep --color=auto"
 alias grepi="grep -i"
-alias xgrep='GREP_OPTIONS="--color=always" xargs -0 grep -0'
-alias grepc="findc -print0 | xgrep -nH"
-alias greph="findh -print0 | xgrep -nH"
-alias grepch="findch -print0 | xgrep -nH"
-alias grepmake="findmake -print0 | xgrep -nH"
+alias xgrep="xargs -0 grep -0 --color=always"
 
 # xbmc alias
-alias sshxbmc="ssh -l xbmc apollo.local"
 alias wakexbmc="wakeonlan 00:23:54:fa:71:bc"
 
 # Date converter functions
@@ -70,3 +62,27 @@ date2human()
 {
     TZ=UTC date -d @$@
 }
+
+# arch pacman alias
+alias pac-update="sudo pacman -Syu"      # Synchronize with repositories and then upgrade packages
+                                         # that are out of date on the local system.
+alias pac-download="pacman -Sw"          # Download specified package(s) as .tar.xz ball
+alias pac-install="sudo pacman -S"       # Install specific package(s) from the repositories
+alias pac-install-local="sudo pacman -U" # Install specific package not from the repositories but
+                                         # from a file
+alias pac-remove="sudo pacman -Rns"      # Remove the specified package(s), its configuration(s) and
+                                         # unneeded dependencies
+alias pac-info="pacman -Si"              # Display information about a given package in the
+                                         # repositories
+alias pac-search="pacman -Ss"            # Search for package(s) in the repositories
+alias pac-local-info="pacman -Qii"       # Display information about a given package in the local
+                                         # database
+alias pac-local-search="pacman -Qs"      # Search for package(s) in the local database
+alias pac-orphan="pacman -Qdt"           # List all packages which are orphaned
+alias pac-cache-clean="sudo pacman -Sc"  # Clean cache
+alias pac-files="pacman -Ql"             # List all files installed by a given package
+alias pac-owner="pacman -Qo"             # Show package(s) owning the specified file(s)
+alias pac-mark-exp="pacman -D --asexp"   # Mark one or more installed packages as explicitly
+                                         # installed
+alias pac-mark-dep="pacman -D --asdep"   # Mark one or more installed packages as non explicitly
+                                         # installed
