@@ -1,11 +1,16 @@
 [user]
 	name = Leandro Cardoso
 	email = leandrocardoso@gmail.com
+
 [merge]
 	tool = emerge
+
 [diff]
 	tool = emerge
+
 [core]
 	editor = emacs
-[color]
-	ui = true
+
+[credential]
+	helper = cache --timeout=3600
+    username=LeandroCardoso
