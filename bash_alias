@@ -20,12 +20,12 @@ alias uniqs="sort | uniq"
 alias wcl="wc -l"
 
 if [[ $EMACS ]]; then
-    alias emacs="emacsclient -n"
+    alias emacs="emacsclient"
 else
-    alias emacs="emacs -nw"
+    alias emacs="emacs"
 fi
-alias emc="emacs"
-alias emcc="emacsclient -n"
+alias emc='emacsclient -a=""'
+alias emcc='emacsclient -a"" -n'
 
 # ls alias
 alias ls="ls -F -T 0 -N --color=auto"
@@ -75,6 +75,7 @@ alias pac-remove="sudo pacman -Rns"      # Remove the specified package(s), its 
 alias pac-info="pacman -Si"              # Display information about a given package in the
                                          # repositories
 alias pac-search="pacman -Ss"            # Search for package(s) in the repositories
+alias pac-aur-list="pacman -Qm"          # List all AUR packages installed
 alias pac-local-info="pacman -Qii"       # Display information about a given package in the local
                                          # database
 alias pac-local-search="pacman -Qs"      # Search for package(s) in the local database
@@ -82,7 +83,7 @@ alias pac-orphan="pacman -Qdt"           # List all packages which are orphaned
 alias pac-cache-clean="sudo pacman -Sc"  # Clean cache
 alias pac-files="pacman -Ql"             # List all files installed by a given package
 alias pac-owner="pacman -Qo"             # Show package(s) owning the specified file(s)
-alias pac-mark-exp="pacman -D --asexp"   # Mark one or more installed packages as explicitly
+alias pac-mark-exp="sudo pacman -D --asexp"   # Mark one or more installed packages as explicitly
                                          # installed
-alias pac-mark-dep="pacman -D --asdep"   # Mark one or more installed packages as non explicitly
+alias pac-mark-dep="sudo pacman -D --asdep"   # Mark one or more installed packages as non explicitly
                                          # installed
