@@ -7,6 +7,7 @@ for newpath in ~/bin; do
     fi
 done
 unset newpath
+export PATH
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
@@ -14,7 +15,7 @@ unset newpath
 # change TERM to the awesome 256 colors terminal
 case "$TERM" in
     xterm*)
-        TERM=xterm-256color
+        export TERM=xterm-256color
         ;;
 esac
 
@@ -65,8 +66,9 @@ export LESS_TERMCAP_ue=$reset            # end underline
 export LESS_TERMCAP_us=$underline$fgblue # underline (paths, keywords)
 
 # The one true editor
-VISUAL="emacs -nw"
-EDITOR="emacs -nw"
+export VISUAL='emacsclient -a=""'
+export EDITOR='emacsclient -a=""'
+export DIFFPROG='emacs' # needed by pacman
 
 # lines which begin with a space char and lines matching the previous history entry are not saved in
 # the history list
