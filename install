@@ -1,0 +1,24 @@
+#!/bin/bash
+
+DOTFILES_DIR=$HOME/dotfiles/
+
+declare -a DOTFILES=(
+    .bash_alias
+    .bash_profile
+    .bashrc
+    .gitconfig
+    .inputrc
+    .screenrc
+)
+
+for file in "${DOTFILES[@]}"; do
+    if ! [ -f "${DOTFILES_DIR}${file}" ]; then
+        echo Warning: file \""${DOTFILES_DIR}${file}"\" does not exist.
+    else
+        ln -frsv "${DOTFILES_DIR}${file}" $HOME/
+    fi
+done
+
+unset file
+unset DOTFILES
+unset DOTFILES_DIR
