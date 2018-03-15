@@ -4,6 +4,7 @@
 
 [merge]
 	tool = emerge
+    conflictStyle = diff3
 
 [diff]
 	tool = emerge
