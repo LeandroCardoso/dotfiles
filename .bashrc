@@ -115,6 +115,7 @@ fi
 
 # Print misc information
 echo $fgyellow
+echo $(lsb_release -s -d) $(lsb_release -s -c)
 uname -a
 uptime
 echo
