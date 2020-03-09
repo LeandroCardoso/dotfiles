@@ -1,17 +1,14 @@
 [user]
 	name = Leandro Cardoso
 	email = leandrocardoso@gmail.com
-
+[core]
+	editor = emacs
+    excludesFile = ~/dotfiles/git/ignore
+[diff]
+	tool = emerge
 [merge]
 	tool = emerge
     conflictStyle = diff3
-
-[diff]
-	tool = emerge
-
-[core]
-	editor = emacs
-
 [credential]
 	helper = cache --timeout=86400
 	username=LeandroCardoso
