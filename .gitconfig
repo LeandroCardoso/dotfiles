@@ -16,3 +16,5 @@
 	pushDefault = origin
 [pull]
 	rebase = merges
+[includeIf "gitdir:rdi/"]
+	path = ~/dotfiles/git/rdi.config
