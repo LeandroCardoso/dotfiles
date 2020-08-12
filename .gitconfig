@@ -3,7 +3,7 @@
 	email = leandrocardoso@gmail.com
 [core]
 	editor = emacs
-    excludesFile = ~/dotfiles/git/ignore
+	excludesFile = ~/dotfiles/git/ignore
 [diff]
 	tool = emerge
 [merge]
@@ -11,7 +11,7 @@
     conflictStyle = diff3
 [credential]
 	helper = cache --timeout=86400
-	username=LeandroCardoso
+	username = LeandroCardoso
 [remote]
 	pushDefault = origin
 [pull]
