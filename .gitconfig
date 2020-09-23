@@ -4,6 +4,7 @@
 [core]
 	editor = emacs
 	excludesFile = ~/dotfiles/git/ignore
+	autocrlf = input
 [diff]
 	tool = emerge
 [merge]
