@@ -3,7 +3,7 @@
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
-alias d="cd -"
+alias b="cd -"
 alias dirs="dirs -v"
 alias dus="du -s *"
 alias duss="du -s * | sort -n"
