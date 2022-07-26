@@ -15,7 +15,9 @@ for file in "${DOTFILES[@]}"; do
     if ! [ -f "${DOTFILES_DIR}${file}" ]; then
         echo Warning: file \""${DOTFILES_DIR}${file}"\" does not exist.
     else
-        ln -frsv "${DOTFILES_DIR}${file}" $HOME/
+        # realpath is used create a link relative to the $HOME directory *without* expanding
+        # symlinks; I need this when the $DOTFILES_DIR itself is a symlink to another directory.
+        ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${DOTFILES_DIR}${file})" $HOME/
     fi
 done
 
