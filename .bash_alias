@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+# general
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -29,7 +30,19 @@ fi
 alias emc='emacsclient -a=""'
 alias emcc='emacsclient -a"" -n'
 
-# ls alias
+# find
+alias fd="find -L . -name"
+alias fdd="find -L . -type d"
+alias fddn="find -L . -type d -name"
+alias fdf="find -L . -type f"
+alias fdfn="find -L . -type f -name"
+
+# grep
+alias grep="grep --color=auto"
+alias grepi="grep -i"
+alias xgrep="xargs -0 grep -0 --color=always"
+
+# ls
 alias ls="ls -F -T 0 -N --color=auto"
 alias l="ls"
 alias ll="ls -l"
@@ -38,21 +51,6 @@ alias lla="ls -la"
 alias lh="ls -lh"
 alias lt="ls -ltr"
 alias lsd="ls -d"
-
-# find alias
-alias fd="find -L . -name"
-alias fdf="find -L . -type f -name"
-alias fdd="find -L . -type d -name"
-alias fdfa="find -L . -type f"
-alias fdda="find -L . -type d"
-
-# grep alias
-alias grep="grep --color=auto"
-alias grepi="grep -i"
-alias xgrep="xargs -0 grep -0 --color=always"
-
-# xbmc alias
-alias wakexbmc="wakeonlan 00:23:54:fa:71:bc"
 
 # Date converter functions
 date2unix()
