@@ -62,28 +62,3 @@ date2human()
 {
     TZ=UTC date -d @$@
 }
-
-# arch pacman alias
-alias pac-update="sudo pacman -Syu"      # Synchronize with repositories and then upgrade packages
-                                         # that are out of date on the local system.
-alias pac-download="pacman -Sw"          # Download specified package(s) as .tar.xz ball
-alias pac-install="sudo pacman -S"       # Install specific package(s) from the repositories
-alias pac-install-local="sudo pacman -U" # Install specific package not from the repositories but
-                                         # from a file
-alias pac-remove="sudo pacman -Rns"      # Remove the specified package(s), its configuration(s) and
-                                         # unneeded dependencies
-alias pac-info="pacman -Si"              # Display information about a given package in the
-                                         # repositories
-alias pac-search="pacman -Ss"            # Search for package(s) in the repositories
-alias pac-aur-list="pacman -Qm"          # List all AUR packages installed
-alias pac-local-info="pacman -Qii"       # Display information about a given package in the local
-                                         # database
-alias pac-local-search="pacman -Qs"      # Search for package(s) in the local database
-alias pac-orphan="pacman -Qdt"           # List all packages which are orphaned
-alias pac-cache-clean="sudo pacman -Sc"  # Clean cache
-alias pac-files="pacman -Ql"             # List all files installed by a given package
-alias pac-owner="pacman -Qo"             # Show package(s) owning the specified file(s)
-alias pac-mark-exp="sudo pacman -D --asexp"   # Mark one or more installed packages as explicitly
-                                         # installed
-alias pac-mark-dep="sudo pacman -D --asdep"   # Mark one or more installed packages as non explicitly
-                                         # installed
