@@ -15,10 +15,12 @@ alias hg="history | grep -i"
 alias j="jobs -l"
 alias psu='ps -fu $USER'
 alias shlvl="echo $SHLVL"
+alias sshdragon="ssh 192.168.0.100"
 alias uniqcount="sort | uniq -c | sort -n"
 alias uniqs="sort | uniq"
 alias wcl="wc -l"
 
+# emacs
 if [[ $EMACS ]]; then
     alias emacs="emacsclient"
 else
