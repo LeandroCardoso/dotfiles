@@ -1,0 +1,13 @@
+#!/usb/bin/bash
+
+# Don't run this script if unless the distribution is Gentoo
+if [[ "$(lsb_release -si)" != *"Gentoo"* ]]; then
+    exit
+fi
+
+alias emerge="time sudo emerge"
+
+alias emerge-clean="emerge --depclean"
+alias emerge-newuse="emerge --deep --newuse @world"
+alias emerge-rm="emerge --deselect"
+alias emerge-update="emerge --update --deep --newuse @world"
