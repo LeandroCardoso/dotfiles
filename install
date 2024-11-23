@@ -1,26 +1,14 @@
 #!/bin/bash
 
-DOTFILES_DIR=$HOME/dotfiles/
+DOTFILES_DIR="$(pwd)"
+DOTFILES_HOME_DIR="${DOTFILES_DIR}/home"
 
-declare -a DOTFILES=(
-    .bash_alias
-    .bash_profile
-    .bashrc
-    .gitconfig
-    .inputrc
-    .screenrc
-)
-
-for file in "${DOTFILES[@]}"; do
-    if ! [ -f "${DOTFILES_DIR}${file}" ]; then
-        echo Warning: file \""${DOTFILES_DIR}${file}"\" does not exist.
-    else
-        # realpath is used create a link relative to the $HOME directory *without* expanding
-        # symlinks; I need this when the $DOTFILES_DIR itself is a symlink to another directory.
-        ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${DOTFILES_DIR}${file})" $HOME/
-    fi
+for file in "${DOTFILES_HOME_DIR}"/.*; do
+    # realpath is used create a link relative to the $HOME directory *without* expanding symlinks; I
+    # need this when the $DOTFILES_DIR itself is a symlink to another directory.
+    ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${file})" $HOME/
 done
 
 unset file
-unset DOTFILES
 unset DOTFILES_DIR
+unset DOTFILES_HOME_DIR
