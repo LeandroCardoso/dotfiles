@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Instructions
+#
+# SDDM breeze theme background configuraton file must be set to the same value as
+# $SDDM_BACKGROUND_IMAGE variable.
+#
+# Example:
+#
+# File: /usr/share/sddm/themes/breeze/theme.conf.user
+#
+# [General]
+# background=/home/leandro/.sddm_background_image.jpg
+# type=image
+
+# Config
+SOURCE_IMAGE_DIRECTORY="/home/leandro/Documentos/Wallpapers/misc/"
+SDDM_BACKGROUND_IMAGE="/home/leandro/.sddm_background_image.jpg"
+
+# Execution
+RANDOM_SOURCE_IMAGE=$(find $SOURCE_IMAGE_DIRECTORY -type f -print0 | shuf -zn 1)
+convert "$RANDOM_SOURCE_IMAGE" "$SDDM_BACKGROUND_IMAGE"

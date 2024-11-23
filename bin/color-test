@@ -1,0 +1,21 @@
+#!/bin/bash
+modes="bold dim smul blink rev"
+
+if [[ $1 ]]; then
+    colors=$1
+else
+    colors=$(tput colors)
+fi
+
+color=0
+while (( $color < $colors )); do
+    echo -n $color $(tput setaf $color)normal
+    
+    for mode in $modes; do
+        echo -n $(tput sgr0) $(tput setaf $color)$(tput $mode)$mode
+    done
+    echo
+    
+    ((color+=1))
+    tput sgr0 #reset
+done

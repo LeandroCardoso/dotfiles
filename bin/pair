@@ -1,0 +1,100 @@
+#!/bin/bash
+
+usage() {
+    cat <<EOF
+Usage: $0 <ACTION> <EXT1> <EXT2>
+
+Action:
+    list:   list unpaired files that don't match both EXT1 and EXT2 extensions
+    rm:     remove unpaired files that match EXT1 extension, but don't match EXT2 extension
+    trash:  Put in trash unpaired files that match EXT1 extension, but don't match EXT2 extension
+
+EXT1 and EXT2 must filename extensions.
+EOF
+}
+
+list() {
+    unpair_files1=()
+    unpair_files2=()
+
+    for f in *.$ext1; do
+        if [[ -f $f ]] && ! [[ -f ${f/$ext1/$ext2} ]]; then
+            unpair_files1+=($f)
+        fi
+    done
+
+    for f in *.$ext2; do
+        if [[ -f $f ]] && ! [[ -f ${f/$ext2/$ext1} ]]; then
+            unpair_files2+=($f)
+        fi
+    done
+
+    if [[ ${#unpair_files1[@]} -eq 0 ]] && [[ ${#unpair_files2[@]} -eq 0 ]]; then
+        echo No unpaired files found
+        exit
+    fi
+
+    echo "Unpaired files ($ext1):"
+    echo "${unpair_files1[@]}" | column -t
+
+    echo "Unpaired files ($ext2):"
+    echo "${unpair_files2[@]}" | column -t
+}
+
+remove() {
+    unpair_files1=()
+
+    for f in *.$ext1; do
+        if [[ -f $f ]] && ! [[ -f ${f/$ext1/$ext2} ]]; then
+            unpair_files1+=($f)
+        fi
+    done
+
+    if [[ ${#unpair_files1[@]} -eq 0 ]]; then
+        echo No unpaired files found
+        exit
+    fi
+
+    echo Unpaired files:
+    echo "${unpair_files1[@]}" | column -t
+
+    if [[ $action == "trash" ]]; then
+        if ! trash-put --version &> /dev/null; then
+            echo Error: trash-cli is not installed
+            exit 1
+        fi
+
+        trash-put "${unpair_files1[@]}"
+    else
+        rm -Iv "${unpair_files1[@]}"
+    fi
+}
+
+if [[ $# -ne 3 ]]; then
+    echo Error: wrong number of parameters
+    echo
+    usage
+    exit
+fi
+
+action=$1
+ext1=$2
+ext2=$3
+
+case $action in
+    list)
+        list
+        ;;
+    rm)
+        remove
+        ;;
+    trash)
+        remove
+        ;;
+    *)
+        echo Error: unexpected ACTION
+        echo
+        usage
+        exit 1
+        ;;
+esac
