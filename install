@@ -1,10 +1,13 @@
 #!/bin/bash
 
-DOTFILES_DIR="$(pwd)"
+DOTFILES_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
+# DEBUG
+# echo dotfile_dir:$DOTFILES_DIR
 
 declare -a DOTFILES=(
-    bin
-    "${DOTFILES_DIR}/home/".*
+    $DOTFILES_DIR/bin
+    $(find $DOTFILES_DIR/home -type f)
 )
 
 for file in "${DOTFILES[@]}"; do
@@ -13,10 +16,10 @@ for file in "${DOTFILES[@]}"; do
     else
         # realpath is used create a link relative to the $HOME directory *without* expanding
         # symlinks; I need this when the $DOTFILES_DIR itself is a symlink to another directory.
-        ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${file})" $HOME/
+        ln -fsv -- "$(realpath -mqs --relative-to $HOME -- ${file})" $HOME/
     fi
 done
 
 unset file
-unset DOTFILES_DIR
 unset DOTFILES
+unset DOTFILES_DIR
