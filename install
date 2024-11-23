@@ -8,9 +8,13 @@ declare -a DOTFILES=(
 )
 
 for file in "${DOTFILES[@]}"; do
-    # realpath is used create a link relative to the $HOME directory *without* expanding symlinks; I
-    # need this when the $DOTFILES_DIR itself is a symlink to another directory.
-    ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${file})" $HOME/
+    if ! [ -a "${file}" ]; then
+        echo Warning: file \""${file}"\" does not exist.
+    else
+        # realpath is used create a link relative to the $HOME directory *without* expanding
+        # symlinks; I need this when the $DOTFILES_DIR itself is a symlink to another directory.
+        ln -fsv -- "$(realpath -ms --relative-to $HOME -- ${file})" $HOME/
+    fi
 done
 
 unset file
