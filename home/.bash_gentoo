@@ -2,7 +2,7 @@
 
 # Don't run this script if unless the distribution is Gentoo
 if [[ "$(lsb_release -si)" != *"Gentoo"* ]]; then
-    exit
+    return;
 fi
 
 alias emerge="time sudo emerge"
