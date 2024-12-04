@@ -105,7 +105,7 @@ screen_title()
 
 # My aliases
 [[ -f ~/.bash_alias ]] && . ~/.bash_alias
-[[ -f ~/.bash_alias_gentoo ]] && . ~/.bash_alias_gentoo
+[[ -f ~/.bash_gentoo ]] && . ~/.bash_gentoo
 
 # Completion
 if [ -f /usr/share/bash-completion/bash_completion ]; then
