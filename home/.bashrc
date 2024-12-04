@@ -105,6 +105,9 @@ screen_title()
 
 # My aliases
 [[ -f ~/.bash_alias ]] && . ~/.bash_alias
+
+# Distro specific
+[[ -f ~/.bash_arch ]] && . ~/.bash_arch
 [[ -f ~/.bash_gentoo ]] && . ~/.bash_gentoo
 
 # Completion
