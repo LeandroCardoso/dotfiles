@@ -16,7 +16,7 @@ alias pac="pacman"
 alias pac-update="pacman -Syu"         # Synchronize with repositories and then upgrade packages
                                        # that are out of date on the local system.
 alias pac-add="pacman -S"              # Install specific package(s) from the repositories
-alias pac-rm="pacman -Rns"             # Remove the specified package(s), its configuration(s) and
+alias pac-rm="pacman -Rcnsu"             # Remove the specified package(s), its configuration(s) and
                                        # unneeded dependencies
 alias pac-info="pacman -Si"            # Display information about a given package in the
                                        # repositories
