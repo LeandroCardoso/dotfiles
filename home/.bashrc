@@ -66,9 +66,8 @@ export LESS_TERMCAP_ue=$reset            # end underline
 export LESS_TERMCAP_us=$underline$fgblue # underline (paths, keywords)
 
 # The one true editor
-export VISUAL='emacsclient -a=""'
-export EDITOR='emacsclient -a=""'
-export DIFFPROG='emacs' # needed by pacman
+export VISUAL=emacsclient
+export EDITOR=emacsclient
 
 # lines which begin with a space char and lines matching the previous history entry are not saved in
 # the history list
