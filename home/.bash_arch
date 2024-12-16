@@ -10,25 +10,29 @@ if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]; then
 fi
 
 # pacman alias
-alias pacman="sudo pacman --color=always"
-alias pac="pacman"
+alias pac="pacman --color=always"
 
-alias pac-update="pacman -Syu"         # Synchronize with repositories and then upgrade packages
-                                       # that are out of date on the local system.
-alias pac-add="pacman -S"              # Install specific package(s) from the repositories
-alias pac-rm="pacman -Rcnsu"             # Remove the specified package(s), its configuration(s) and
-                                       # unneeded dependencies
-alias pac-info="pacman -Si"            # Display information about a given package in the
-                                       # repositories
-alias pac-info-local="pacman -Qii"     # Display information about a given package in the local
-                                       # database
-alias pac-search="pacman -Ss"          # Search for package(s) in the repositories
-alias pac-search-local="pacman -Qs"    # Search for package(s) in the local database
-alias pac-list-aur="pacman -Qm"        # List all AUR packages installed
-alias pac-orphan="pacman -Qdt"         # List all packages which are orphaned
-alias pac-cache-clean="pacman -Sc"     # Clean cache
-alias pac-files="pacman -Ql"           # List all files installed by a given package
-alias pac-owner="pacman -Qo"           # Show package(s) owning the specified file(s)
-alias pac-mark-exp="pacman -D --asexp" # Mark one or more installed packages as explicitly installed
-alias pac-mark-dep="pacman -D --asdep" # Mark one or more installed packages as non-explicitly
-                                       # installed
+alias pac-upgrade="pac -Syu"        # Synchronize with repositories and then upgrade packages that
+                                    # are out of date on the local system.
+alias pac-add="pac -S"              # Install specific package(s) from the repositories
+alias pac-rm="pac -Rcnsu"           # Remove the specified package(s), its configuration(s) and
+                                    # unneeded dependencies
+alias pac-info="pac -Si"            # Display information about a given package in the repositories
+alias pac-info-local="pac -Qii"     # Display information about a given package in the local
+                                    # database
+alias pac-search="pac -Ss"          # Search for package(s) in the repositories
+alias pac-search-local="pac -Qs"    # Search for package(s) in the local database
+alias pac-list-aur="pac -Qm"        # List all AUR packages installed
+alias pac-orphan="pac -Qdt"         # List all packages which are orphaned
+alias pac-cache-clean="pac -Sc"     # Clean cache
+alias pac-files="pac -Ql"           # List all files installed by a given package
+alias pac-owner="pac -Qo"           # Show package(s) owning the specified file(s)
+alias pac-mark-exp="pac -D --asexp" # Mark one or more installed packages as explicitly installed
+alias pac-mark-dep="pac -D --asdep" # Mark one or more installed packages as non-explicitly
+                                    # installed
+
+
+if [ -f /usr/share/bash-completion/completions/pacman ]; then
+    source /usr/share/bash-completion/completions/pacman
+    complete -F _pacman pac
+fi
