@@ -14,7 +14,7 @@
 # type=image
 
 # Config
-SOURCE_IMAGE_DIRECTORY="/home/leandro/Documentos/Wallpapers/misc/"
+SOURCE_IMAGE_DIRECTORY="/home/leandro/Documentos/Wallpapers/"
 SDDM_BACKGROUND_IMAGE="/home/leandro/.sddm_background_image.jpg"
 
 # Execution
