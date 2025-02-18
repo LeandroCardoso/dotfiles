@@ -9,6 +9,10 @@ if [ -f /usr/share/doc/pkgfile/command-not-found.bash ]; then
     source /usr/share/doc/pkgfile/command-not-found.bash
 fi
 
+if [ -f /usr/bin/delta ]; then
+    DIFFPROG=delta
+fi
+
 # pacman alias
 alias pac="pacman --color=always"
 
@@ -30,7 +34,6 @@ alias pac-owner="pac -Qo"           # Show package(s) owning the specified file(
 alias pac-mark-exp="pac -D --asexp" # Mark one or more installed packages as explicitly installed
 alias pac-mark-dep="pac -D --asdep" # Mark one or more installed packages as non-explicitly
                                     # installed
-
 
 if [ -f /usr/share/bash-completion/completions/pacman ]; then
     source /usr/share/bash-completion/completions/pacman
