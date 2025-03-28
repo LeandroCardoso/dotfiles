@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+CACHE_DIR=/var/cache/duperemove
+LOG_DIR=/var/log/duperemove
+
+if [ ! -d $CACHE_DIR ]; then
+   mkdir -p $CACHE_DIR
+fi
+
+if [ ! -d $LOG_DIR ]; then
+   mkdir -p $LOG_DIR
+fi
+
+# Force the execution of the "time" command in "usr/bin" directory, because the built-in bash
+# version lacks the "-o" parameter
+
+/usr/bin/time -o $LOG_DIR/home.time duperemove -drh --skip-zeroes --hashfile=$CACHE_DIR/home.hash /home > $LOG_DIR/home.log
+/usr/bin/time -o $LOG_DIR/data.time duperemove -drh --skip-zeroes --hashfile=$CACHE_DIR/data.hash /data > $LOG_DIR/data.log
